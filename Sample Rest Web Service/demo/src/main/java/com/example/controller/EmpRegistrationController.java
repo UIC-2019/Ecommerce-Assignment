@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,6 +11,8 @@ import com.example.beans.Employee;
 import com.example.beans.EmployeeRegistration;
 import com.example.beans.EmployeeWrapper;
 
+
+@CrossOrigin(origins= "http://localhost:8085")
 @RestController
 public class EmpRegistrationController {
 
