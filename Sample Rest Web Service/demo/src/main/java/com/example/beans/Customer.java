@@ -1,10 +1,6 @@
 package com.example.beans;
 
 public class Customer {
-	/*
-	 * CustomerID
-	 */
-	private String CustomerID;
 	
 	/*
 	 * EmailID
@@ -48,12 +44,7 @@ public class Customer {
 	private String ExpDate;
 	
 	
-	public String getCustomerID() {
-		return CustomerID;
-	}
-	public void setCustomerID(String customerID) {
-		CustomerID = customerID;
-	}
+
 	public String getEmailID() {
 		return EmailID;
 	}
