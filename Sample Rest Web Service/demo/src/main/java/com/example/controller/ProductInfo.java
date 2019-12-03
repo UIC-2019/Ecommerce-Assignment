@@ -47,7 +47,8 @@ public class ProductInfo {
 		}
 		return wineInfo;
 	}
-		public void checkoutProcess () {
+			@RequestMapping(method = RequestMethod.POST, value="/checkout")
+	public void checkoutProcess () {
 		
 		EcommerceDao ec= new EcommerceDao();
 		Customer cust = new Customer();
@@ -66,4 +67,6 @@ public class ProductInfo {
 		ec.updateCheckoutTables(cust);
 		
 	}
+			
+		
 }
