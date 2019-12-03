@@ -55,35 +55,33 @@ public class EcommerceDao {
 		PreparedStatement ps;
 		try {
 
-			String CustomerID;
-			String EmailID;
-			String FullName;
-			String Address;
-			String City;
-			String State;
-			int Zip;
-			int MobNo;
-			int CreditCardNo;
-			String CreditCardType;
-			String ExpDate;
-			int CVV;
+			String EmailID="temp";
+			String FullName=null;
+			String Address=null;
+			String City=null;
+			String State=null;
+			int Zip=0;
+			int MobNo=0;
+			int CreditCardNo=0;
+			String CreditCardType=null;
+			String ExpDate=null;
+			int CVV=0;
 
-			String sql = "INSERT INTO Customer VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO Customer VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 			ps = con.prepareStatement(sql);
 			//Add individual field values from array of values to be inserted to Preparedstatement
-			ps.setString(1, CustomerID);
-			ps.setString(2, EmailID);
-			ps.setString(3, FullName);
-			ps.setString(4, Address);
-			ps.setString(5, City);
-			ps.setString(6, State);
-			ps.setString(7, Zip);
-			ps.setString(8, MobNo);
-			ps.setString(9, CreditCardNo);
-			ps.setString(10, CreditCardType);
-			ps.setString(11, ExpDate);
-			ps.setString(12, CVV);
+			ps.setString(1, EmailID);
+			ps.setString(2, FullName);
+			ps.setString(3, Address);
+			ps.setString(4, City);
+			ps.setString(5, State);
+			ps.setInt(6, Zip);
+			ps.setInt(7, MobNo);
+			ps.setInt(8, CreditCardNo);
+			ps.setString(9, CreditCardType);
+			ps.setString(10, ExpDate);
+			ps.setInt(11, CVV);
 			//Execute the insert query/prepated statement
 			ps.executeUpdate();
 
