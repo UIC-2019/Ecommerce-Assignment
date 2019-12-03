@@ -47,41 +47,30 @@ public class EcommerceDao {
 		return productMap;
 	}
 	
-	public static void updateCheckoutTables(){
-		productMap = new HashMap<Integer,Product>();
+	public static void updateCheckoutTables(Customer cust){
+
 		//connection is fetched from connection provider
 		Connection con=DBConnection.getCon();
 		//query is done database
 		PreparedStatement ps;
 		try {
 
-			String EmailID="temp";
-			String FullName=null;
-			String Address=null;
-			String City=null;
-			String State=null;
-			int Zip=0;
-			int MobNo=0;
-			int CreditCardNo=0;
-			String CreditCardType=null;
-			String ExpDate=null;
-			int CVV=0;
 
 			String sql = "INSERT INTO Customer VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 			ps = con.prepareStatement(sql);
 			//Add individual field values from array of values to be inserted to Preparedstatement
-			ps.setString(1, EmailID);
-			ps.setString(2, FullName);
-			ps.setString(3, Address);
-			ps.setString(4, City);
-			ps.setString(5, State);
-			ps.setInt(6, Zip);
-			ps.setInt(7, MobNo);
-			ps.setInt(8, CreditCardNo);
-			ps.setString(9, CreditCardType);
-			ps.setString(10, ExpDate);
-			ps.setInt(11, CVV);
+			ps.setString(1, cust.getEmailID());
+			ps.setString(2, cust.getFullname());
+			ps.setString(3, cust.getAddress());
+			ps.setString(4, cust.getCity());
+			ps.setString(5, cust.getState());
+			ps.setInt(6, cust.getZip());
+			ps.setInt(7, cust.getMobNo());
+			ps.setInt(8, cust.getCreditCardNo());
+			ps.setString(9, cust.getCreditCardType());
+			ps.setString(10, cust.getExpDate());
+			ps.setInt(11, cust.getCVV());
 			//Execute the insert query/prepated statement
 			ps.executeUpdate();
 
