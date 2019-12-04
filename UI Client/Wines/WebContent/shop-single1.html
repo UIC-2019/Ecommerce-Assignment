@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Wines N Things &mdash; Blossoms Vineyard</title>
+  <title>Wines &mdash; Website Template by Colorlib</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -27,45 +27,12 @@
   <link href="css/jquery.mb.YTPlayer.min.css" media="all" rel="stylesheet" type="text/css">
 
   <link rel="stylesheet" href="css/style.css">
-<script>
-      function loadDoc() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("wineContainer").innerHTML =
-            this.responseText;
-          }
-        };
-        xhttp.open("GET", "http://localhost:8090/products", true);
-        xhttp.send();
-      }
-      function findGetParameter(parameterName) {
-           var result = null,
-               tmp = [];
-           var items = location.search.substr(1).split("&");
-           for (var index = 0; index < items.length; index++) {
-               tmp = items[index].split("=");
-               if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
-          }
-        return result;
-      }
-         function storeCart(){
-           var cartQuantity = document.getElementById("wineQuantity").value;
-           var productId = findGetParameter("productId");
-           alert(productId);
-           sessionStorage.setItem(productId+"Quantity", cartQuantity);
-           var cart = sessionStorage.getItem(productId+"Quantity");
-           console.log(cart);
-            
-         }
-
-</script>
 
 
 
 </head>
 
-<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" onload="loadDoc()">
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
   <div class="site-wrap">
 
@@ -85,7 +52,7 @@
         <div class="row align-items-center">
           <div class="col-12 text-center">
             <a href="index.html" class="site-logo">
-              <img src="images/winelogo2.jpg" alt="Image" class="img-fluid">
+              <img src="images/logo.png" alt="Image" class="img-fluid">
             </a>
           </div>
           <a href="#" class="mx-auto d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black"><span
@@ -108,32 +75,69 @@
                 <li><a href="about.html" class="nav-link text-left">About</a></li>
                 <li><a href="shop.html" class="nav-link text-left">Wines</a></li>
                 <li class="active"><a href="shop.html" class="nav-link text-left">Shop</a></li>
+                <li><a href="blog.html" class="nav-link text-left">Blog</a></li>
                 <li><a href="contact.html" class="nav-link text-left">Contact</a></li>
               </ul>                                                                                                                                                                                                                                                                                         
             </nav>
-          </div>         
+
+          </div>
+         
         </div>
       </div>
-    </div>    
+
     </div>
+    
+    </div>
+
+    
+    <div>  
+    <div class="site-section bg-primary py-5 page-title-wrap mt-5">
+      <div class="container">
+        <h4>Trius Cabernet France 2011</h4>
+      </div>
+    </div>
+
+      
+    
 
     <div class="site-section mt-5">
       <div class="container">
-
-        <div class="row mb-5">
-          <div class="col-12 section-title text-center mb-5">
-            <h2 class="d-block">Our Products</h2>
-            <p>The finest collections of Red and White wines made with best of the vines at Blossoms Vineyard!</p>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="owl-carousel hero-slide owl-style">
+              <img src="images/wine_1.png" alt="Image" class="img-fluid">
+              <img src="images/wine_2.png" alt="Image" class="img-fluid">
+              <img src="images/wine_3.png" alt="Image" class="img-fluid">
+            </div>
           </div>
-        </div>
+          <div class="col-lg-5 ml-auto">
+            <h2 class="text-primary">Wine Details</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non eos inventore aspernatur voluptatibus ratione odit molestias molestiae, illum et impedit veniam modi sunt quas nam mollitia earum perferendis, dolorem. Magni.</p>
 
-        <div class="row" id="wineContainer">
-         loading...
+            <div class="mb-5">
+            
+              <div class="input-group mb-3" style="max-width: 200px;">
+                <div class="input-group-prepend">
+                  <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                </div>
+                <input type="text" class="form-control text-center border mr-0" value="1" placeholder=""
+                  aria-label="Example text with button addon" aria-describedby="button-addon1">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                </div>
+              </div>
+    
+            </div>
+            <p><a href="cart.html" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Cart</a></p>
+
+
+          </div>
         </div>
       </div>
     </div>
+    </div>
 
-    <!--<div class="hero-2" style="background-image: url('images/hero_2.jpg');">
+    <div class="hero-2" style="background-image: url('images/hero_2.jpg');">
      <div class="container">
         <div class="row justify-content-center text-center align-items-center">
           <div class="col-md-8">
@@ -142,31 +146,27 @@
           </div>
         </div>
       </div>
-    </div>-->
+    </div>
 
-    <div class="site-section bg-light">
+    <div class="site-section bg-primary">
       <div class="container">
-        <div class="owl-carousel owl-slide-3 owl-slide">
+        <div class="owl-carousel owl-slide-3 owl-slide-3-white owl-slide">
         
           <blockquote class="testimony">
             <img src="images/person_1.jpg" alt="Image">
-            <p>&ldquo;Exclusive collection of wines. Red, white, Rose; all in one place. Wide range of prices from most reasonable to highly exclusive. One stop shop for all my wine purchases.&rdquo;</p>
-            <p class="small text-primary">&mdash; Collin Miller</p>
+            <p>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero sapiente beatae, nemo quasi quo neque consequatur rem porro reprehenderit, a dignissimos unde ut enim fugiat deleniti quae placeat in cumque?&rdquo;</p>
           </blockquote>
           <blockquote class="testimony">
             <img src="images/person_2.jpg" alt="Image">
-            <p>&ldquo;Great Collection of Red wines and available for free delivery irrespective of cart price &rdquo;</p>
-            <p class="small text-primary">&mdash; Harley Perkins</p>
+            <p>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero sapiente beatae, nemo quasi quo neque consequatur rem porro reprehenderit, a dignissimos unde ut enim fugiat deleniti quae placeat in cumque?&rdquo;</p>
           </blockquote>
           <blockquote class="testimony">
             <img src="images/person_3.jpg" alt="Image">
-            <p>&ldquo;One stop place for wine people&rdquo;</p>
-            <p class="small text-primary">&mdash; Levi Morris</p>
+            <p>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero sapiente beatae, nemo quasi quo neque consequatur rem porro reprehenderit, a dignissimos unde ut enim fugiat deleniti quae placeat in cumque?&rdquo;</p>
           </blockquote>
           <blockquote class="testimony">
             <img src="images/person_1.jpg" alt="Image">
-            <p>&ldquo;Exclusive wine collections!&rdquo;</p>
-            <p class="small text-primary">&mdash; Allie Smith</p>
+            <p>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero sapiente beatae, nemo quasi quo neque consequatur rem porro reprehenderit, a dignissimos unde ut enim fugiat deleniti quae placeat in cumque?&rdquo;</p>
           </blockquote>
         
         </div>
@@ -194,7 +194,7 @@
             <div class="copyright">
                 <p>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This website is managed with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="#" target="_blank" >Blossoms Vineyard Inc.</a>
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </p>
 
@@ -228,8 +228,6 @@
   <script src="js/jquery.fancybox.min.js"></script>
   <script src="js/jquery.sticky.js"></script>
   <script src="js/jquery.mb.YTPlayer.min.js"></script>
-
-
 
 
   <script src="js/main.js"></script>

@@ -2,12 +2,13 @@
 <html lang="en">
 
 <head>
-  <title>Wines &mdash; Website Template by Colorlib</title>
+  <title>Wines N Things &mdash; Blossoms Vineyard</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  
-  <link href="https://fonts.googleapis.com/css?family=Cinzel:400,700|Montserrat:400,700|Roboto&display=swap" rel="stylesheet"> 
+
+  <link href="https://fonts.googleapis.com/css?family=Cinzel:400,700|Montserrat:400,700|Roboto&display=swap"
+    rel="stylesheet">
 
   <link rel="stylesheet" href="fonts/icomoon/style.css">
 
@@ -29,10 +30,99 @@
   <link rel="stylesheet" href="css/style.css">
 
 
+  <script>
 
+    function loadDoc() {
+      console.log("Cost of Cart : " + sessionStorage.getItem("cartCost"));
+      var cart = Object.keys(sessionStorage);
+      console.log("No of objects in session : " + cart.length);
+      var reqString = '{"item":[';
+      var cartEmptyFlag = false;
+      for (var i = 0; i < cart.length; i++) {
+
+        if (cart[i].includes('Quantity')) {
+          cartEmptyFlag = true;
+          var itemArray = cart[i].split("Quantity");
+          console.log("ProductId in session : " + itemArray[0]);
+          var item = itemArray[0];
+          console.log("Cart Quantity in session : " + sessionStorage.getItem(cart[i]))
+          var quantity = parseInt(sessionStorage.getItem(cart[i]));
+          reqString = reqString.concat('{"productId":"');
+          reqString = reqString.concat(item);
+          reqString = reqString.concat('","quantity":"');
+          reqString = reqString.concat(quantity);
+          reqString = reqString.concat('"},');
+        }
+      }
+      reqString = reqString.concat(']}');
+      reqString = reqString.replace(',]', ']');
+      console.log("String request : " + reqString);
+      sessionStorage.setItem("postRequest", reqString);
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          var array = xhttp.responseText.split("###");
+          document.getElementById("orderTableContainer").innerHTML =
+            this.responseText;
+        }
+      };
+      if (cartEmptyFlag) {
+        xhttp.open("POST", "http://localhost:8090/preCheckout", true);
+        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhttp.send(sessionStorage.getItem("postRequest"));
+      } else {
+        document.getElementById("orderTableContainer").innerHTML =
+          '<tr><td>X<strong class="mx-2">x</strong>X</td><td>X</td></tr><tr><td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td><td class="text-black">$0.00</td></tr><tr><td class="text-black font-weight-bold"><strong>Order Total</strong></td><td class="text-black font-weight-bold"><strong>$0.00</strong></td></tr>';
+
+      }
+    }
+
+    function processOrder() {
+      var orderTotal = document.getElementById("orderTotal").value;
+      var cart = Object.keys(sessionStorage);
+      var reqString = '{"item":[';
+      var cartEmptyFlag = false;
+      for (var i = 0; i < cart.length; i++) {
+
+        if (cart[i].includes('Quantity')) {
+          cartEmptyFlag = true;
+          var itemArray = cart[i].split("Quantity");
+          console.log("ProductId in session : " + itemArray[0]);
+          var item = itemArray[0];
+          console.log("Cart Quantity in session : " + sessionStorage.getItem(cart[i]))
+          var quantity = parseInt(sessionStorage.getItem(cart[i]));
+          reqString = reqString.concat('{"productId":"');
+          reqString = reqString.concat(item);
+          reqString = reqString.concat('","quantity":"');
+          reqString = reqString.concat(quantity);
+          reqString = reqString.concat('"},');
+        }
+      }
+      var countryOption = document.getElementById("c_country");      
+      var country = countryOption.options[countryOption.selectedIndex].text;
+      reqString = reqString.concat('],"customer":{"firstName":"');
+      reqString = reqString.replace(',]', ']');
+      reqString = reqString.concat(document.getElementById("c_fname").value).concat('","lastName":"')
+      reqString = reqString.concat(document.getElementById("c_lname").value).concat('","address":"')
+      reqString = reqString.concat(document.getElementById("c_address").value).concat('","city":"')
+      reqString = reqString.concat(document.getElementById("c_city").value).concat('","state":"')
+      reqString = reqString.concat(document.getElementById("c_state").value).concat('","country":"')
+      reqString = reqString.concat(country).concat('","zip":"')
+      reqString = reqString.concat(document.getElementById("c_zip").value).concat('","email":"')
+      reqString = reqString.concat(document.getElementById("c_email").value).concat('","phone":"')
+      reqString = reqString.concat(document.getElementById("c_phone").value).concat('","ccNo":"')
+      reqString = reqString.concat(document.getElementById("c_ccNo").value).concat('","ccExpiry":"')
+      reqString = reqString.concat(document.getElementById("c_ccExp").value).concat('","ccCVV":"')
+      reqString = reqString.concat(document.getElementById("c_ccCvv").value).concat('"},"orderTotal":"');
+      reqString = reqString.concat(document.getElementById("orderTotal").textContent).concat('"}');
+      sessionStorage.setItem("orderJson", reqString);
+      window.location.href = "http://localhost:8090/Wines/thankyou.html";
+    }
+
+  </script>
 </head>
 
-<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" onload="loadDoc()">
 
   <div class="site-wrap">
 
@@ -46,60 +136,54 @@
     </div>
 
 
-    
+
     <div class="header-top">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-12 text-center">
             <a href="index.html" class="site-logo">
-              <img src="images/logo.png" alt="Image" class="img-fluid">
+              <img src="images/winelogo2.jpg" alt="Image" class="img-fluid">
             </a>
           </div>
           <a href="#" class="mx-auto d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black"><span
-                class="icon-menu h3"></span></a>
+              class="icon-menu h3"></span></a>
         </div>
       </div>
-      
 
 
-      
+
+
       <div class="site-navbar py-2 js-sticky-header site-navbar-target d-none pl-0 d-lg-block" role="banner">
 
-      <div class="container">
-        <div class="d-flex align-items-center">
-          
-          <div class="mx-auto">
-            <nav class="site-navigation position-relative text-left" role="navigation">
-              <ul class="site-menu main-menu js-clone-nav mx-auto d-none pl-0 d-lg-block border-none">
-                <li><a href="index.html" class="nav-link text-left">Home</a></li>
-                <li><a href="about.html" class="nav-link text-left">About</a></li>
-                <li><a href="shop.html" class="nav-link text-left">Wines</a></li>
-                <li class="active"><a href="shop.html" class="nav-link text-left">Shop</a></li>
-                <li><a href="contact.html" class="nav-link text-left">Contact</a></li>
-              </ul>                                                                                                                                                                                                                                                                                         
-            </nav>
+        <div class="container">
+          <div class="d-flex align-items-center">
+
+            <div class="mx-auto">
+              <nav class="site-navigation position-relative text-left" role="navigation">
+                <ul class="site-menu main-menu js-clone-nav mx-auto d-none pl-0 d-lg-block border-none">
+                  <li><a href="index.html" class="nav-link text-left">Home</a></li>
+                  <li><a href="about.html" class="nav-link text-left">About</a></li>
+                  <li><a href="shop.html" class="nav-link text-left">Wines</a></li>
+                  <li class="active"><a href="shop.html" class="nav-link text-left">Shop</a></li>
+                  <li><a href="contact.html" class="nav-link text-left">Contact</a></li>
+                </ul>
+              </nav>
+
+            </div>
 
           </div>
-         
         </div>
+
       </div>
 
     </div>
-    
-    </div>
-
-    
-    
-    
-      
-    
 
     <div class="site-section">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12">
             <div class="bg-light rounded p-3">
-              <p class="mb-0">Returning customer? <a href="#" class="d-inline-block">Click here</a> to login</p>
+              <p class="mb-0">Returning customer? <a href="#" class="d-inline-block">Login coming soon</a> </p>
             </div>
           </div>
         </div>
@@ -111,13 +195,13 @@
                 <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
                 <select id="c_country" class="form-control">
                   <option value="1">Select a country</option>
-                  <option value="2">bangladesh</option>
-                  <option value="3">Algeria</option>
-                  <option value="4">Afghanistan</option>
-                  <option value="5">Ghana</option>
-                  <option value="6">Albania</option>
-                  <option value="7">Bahrain</option>
-                  <option value="8">Colombia</option>
+                  <option value="2">United States</option>
+                  <option value="3">United Kingdom</option>
+                  <option value="4">India</option>
+                  <option value="5">France</option>
+                  <option value="6">Portugal</option>
+                  <option value="7">Spain</option>
+                  <option value="8">Mexico</option>
                   <option value="9">Dominican Republic</option>
                 </select>
               </div>
@@ -131,51 +215,54 @@
                   <input type="text" class="form-control" id="c_lname" name="c_lname">
                 </div>
               </div>
-    
+
               <div class="form-group row">
                 <div class="col-md-12">
                   <label for="c_companyname" class="text-black">Company Name </label>
                   <input type="text" class="form-control" id="c_companyname" name="c_companyname">
                 </div>
               </div>
-    
+
               <div class="form-group row">
                 <div class="col-md-12">
                   <label for="c_address" class="text-black">Address <span class="text-danger">*</span></label>
                   <input type="text" class="form-control" id="c_address" name="c_address" placeholder="Street address">
                 </div>
               </div>
-    
+
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Apartment, suite, unit etc. (optional)">
+                <div class="col-md-12">
+                  <label for="c_city" class="text-black">city <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="c_city" name="c_city">
+                </div>
               </div>
-    
+
               <div class="form-group row">
                 <div class="col-md-6">
-                  <label for="c_state_country" class="text-black">State / Country <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_state_country" name="c_state_country">
+                  <label for="c_state" class="text-black">State <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="c_state" name="c_state">
                 </div>
                 <div class="col-md-6">
-                  <label for="c_postal_zip" class="text-black">Posta / Zip <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_postal_zip" name="c_postal_zip">
+                  <label for="c_zip" class="text-black">Posta / Zip <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="c_zip" name="c_zip">
                 </div>
               </div>
-    
+
               <div class="form-group row mb-5">
                 <div class="col-md-6">
-                  <label for="c_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_email_address" name="c_email_address">
+                  <label for="c_email" class="text-black">Email Address <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="c_email" name="c_email">
                 </div>
                 <div class="col-md-6">
                   <label for="c_phone" class="text-black">Phone <span class="text-danger">*</span></label>
                   <input type="text" class="form-control" id="c_phone" name="c_phone" placeholder="Phone Number">
                 </div>
               </div>
-    
+
               <div class="form-group">
                 <label for="c_create_account" class="text-black" data-toggle="collapse" href="#create_an_account"
                   role="button" aria-expanded="false" aria-controls="create_an_account"><input type="checkbox" value="1"
-                    id="c_create_account"> Create an account?</label>
+                    id="c_create_account" disabled="true"> Create an account?</label>
                 <div class="collapse" id="create_an_account">
                   <div class="py-2">
                     <p class="mb-3">Create an account by entering the information below. If you are a returning customer
@@ -188,207 +275,66 @@
                   </div>
                 </div>
               </div>
-    
-    
-              <div class="form-group">
-                <label for="c_ship_different_address" class="text-black" data-toggle="collapse"
-                  href="#ship_different_address" role="button" aria-expanded="false"
-                  aria-controls="ship_different_address"><input type="checkbox" value="1" id="c_ship_different_address">
-                  Ship To A Different Address?</label>
-                <div class="collapse" id="ship_different_address">
-                  <div class="py-2">
-    
-                    <div class="form-group">
-                      <label for="c_diff_country" class="text-black">Country <span class="text-danger">*</span></label>
-                      <select id="c_diff_country" class="form-control">
-                        <option value="1">Select a country</option>
-                        <option value="2">bangladesh</option>
-                        <option value="3">Algeria</option>
-                        <option value="4">Afghanistan</option>
-                        <option value="5">Ghana</option>
-                        <option value="6">Albania</option>
-                        <option value="7">Bahrain</option>
-                        <option value="8">Colombia</option>
-                        <option value="9">Dominican Republic</option>
-                      </select>
-                    </div>
-    
-    
-                    <div class="form-group row">
-                      <div class="col-md-6">
-                        <label for="c_diff_fname" class="text-black">First Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="c_diff_fname" name="c_diff_fname">
-                      </div>
-                      <div class="col-md-6">
-                        <label for="c_diff_lname" class="text-black">Last Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="c_diff_lname" name="c_diff_lname">
-                      </div>
-                    </div>
-    
-                    <div class="form-group row">
-                      <div class="col-md-12">
-                        <label for="c_diff_companyname" class="text-black">Company Name </label>
-                        <input type="text" class="form-control" id="c_diff_companyname" name="c_diff_companyname">
-                      </div>
-                    </div>
-    
-                    <div class="form-group row">
-                      <div class="col-md-12">
-                        <label for="c_diff_address" class="text-black">Address <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="c_diff_address" name="c_diff_address"
-                          placeholder="Street address">
-                      </div>
-                    </div>
-    
-                    <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Apartment, suite, unit etc. (optional)">
-                    </div>
-    
-                    <div class="form-group row">
-                      <div class="col-md-6">
-                        <label for="c_diff_state_country" class="text-black">State / Country <span
-                            class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="c_diff_state_country" name="c_diff_state_country">
-                      </div>
-                      <div class="col-md-6">
-                        <label for="c_diff_postal_zip" class="text-black">Posta / Zip <span
-                            class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="c_diff_postal_zip" name="c_diff_postal_zip">
-                      </div>
-                    </div>
-    
-                    <div class="form-group row mb-5">
-                      <div class="col-md-6">
-                        <label for="c_diff_email_address" class="text-black">Email Address <span
-                            class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="c_diff_email_address" name="c_diff_email_address">
-                      </div>
-                      <div class="col-md-6">
-                        <label for="c_diff_phone" class="text-black">Phone <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="c_diff_phone" name="c_diff_phone"
-                          placeholder="Phone Number">
-                      </div>
-                    </div>
-    
-                  </div>
-    
-                </div>
-              </div>
-    
+
               <div class="form-group">
                 <label for="c_order_notes" class="text-black">Order Notes</label>
                 <textarea name="c_order_notes" id="c_order_notes" cols="30" rows="5" class="form-control"
                   placeholder="Write your notes here..."></textarea>
               </div>
-    
+
             </div>
           </div>
           <div class="col-md-6">
-    
-            <div class="row mb-5">
-              <div class="col-md-12">
-                <h2 class="h3 mb-3 text-black font-heading-serif">Coupon Code</h2>
-                <div class="p-3 p-lg-5 border">
-    
-                  <label for="c_code" class="text-black mb-3">Enter your coupon code if you have one</label>
-                  <div class="input-group w-75">
-                    <input type="text" class="form-control" id="c_code" placeholder="Coupon Code" aria-label="Coupon Code"
-                      aria-describedby="button-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary btn-sm rounded px-4" type="button" id="button-addon2">Apply</button>
-                    </div>
-                  </div>
-    
-                </div>
-              </div>
-            </div>
-    
             <div class="row mb-5">
               <div class="col-md-12">
                 <h2 class="h3 mb-3 text-black font-heading-serif">Your Order</h2>
                 <div class="p-3 p-lg-5 border">
                   <table class="table site-block-order-table mb-5">
                     <thead>
-                      <th>Product</th>
+                      <th>Products</th>
                       <th>Total</th>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>Bioderma <strong class="mx-2">x</strong> 1</td>
-                        <td>$55.00</td>
-                      </tr>
-                      <tr>
-                        <td>Ibuprofeen <strong class="mx-2">x</strong> 1</td>
-                        <td>$45.00</td>
-                      </tr>
-                      <tr>
-                        <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
-                        <td class="text-black">$350.00</td>
-                      </tr>
-                      <tr>
-                        <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-                        <td class="text-black font-weight-bold"><strong>$350.00</strong></td>
-                      </tr>
+                    <tbody id="orderTableContainer">
+
                     </tbody>
                   </table>
-    
+
                   <div class="border mb-3 p-3 rounded">
-                    <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse" href="#collapsebank" role="button"
-                        aria-expanded="false" aria-controls="collapsebank">Direct Bank Transfer</a></h3>
-    
-                    <div class="collapse" id="collapsebank">
-                      <div class="py-2 pl-0">
-                        <p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the
-                          payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-                      </div>
-                    </div>
+                    <input placeholder="16 digit credit card number" minlength="16" maxlength="16" type="text"
+                      class="form-control" id="c_ccNo" name="c_ccNo">
                   </div>
-    
+
                   <div class="border mb-3 p-3 rounded">
-                    <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse" href="#collapsecheque" role="button"
-                        aria-expanded="false" aria-controls="collapsecheque">Cheque Payment</a></h3>
-    
-                    <div class="collapse" id="collapsecheque">
-                      <div class="py-2 pl-0">
-                        <p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the
-                          payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-                      </div>
-                    </div>
+                    <input placeholder="MM/YY Expiry" maxlength="5" type="text" class="form-control" id="c_ccExp"
+                      name="c_ccExp">
                   </div>
-    
+
                   <div class="border mb-5 p-3">
-                    <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse" href="#collapsepaypal" role="button"
-                        aria-expanded="false" aria-controls="collapsepaypal">Paypal</a></h3>
-    
-                    <div class="collapse" id="collapsepaypal">
-                      <div class="py-2 pl-0">
-                        <p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the
-                          payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-                      </div>
-                    </div>
+                    <input placeholder="CVV" minlength="3" maxlength="4" type="text" class="form-control" id="c_ccCvv"
+                      name="c_ccCvv">
                   </div>
-    
+
                   <div class="form-group">
-                    <button class="btn btn-primary btn-lg btn-block" onclick="window.location='thankyou.html'">Place
-                      Order</button>
+                    <a class="btn btn-primary btn-lg btn-block" onclick="processOrder()">Place
+                      Order</a>
                   </div>
-    
+
                 </div>
               </div>
             </div>
-    
+
           </div>
         </div>
         <!-- </form> -->
       </div>
     </div>
-  
 
-    
-    
+
+
+
     <div class="footer">
       <div class="container">
-        
+
         <div class="row">
           <div class="col-12 text-center">
             <div class="social-icons">
@@ -402,11 +348,12 @@
         <div class="row">
           <div class="col-12">
             <div class="copyright">
-                <p>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </p>
+              <p>
+                Copyright &copy;
+                <script>document.write(new Date().getFullYear());</script> All rights reserved | This website is managed
+                with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="#" target="_blank">Blossoms
+                  Vineyard Inc.</a>
+              </p>
 
 
 
@@ -415,14 +362,17 @@
         </div>
       </div>
     </div>
-    
+
 
   </div>
   <!-- .site-wrap -->
 
 
   <!-- loader -->
-  <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#ff5e15"/></svg></div>
+  <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+      <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+      <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+        stroke="#ff5e15" /></svg></div>
 
   <script src="js/jquery-3.3.1.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>

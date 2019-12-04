@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Wines &mdash; Website Template by Colorlib</title>
+  <title>Wines N Things &mdash; Blossoms Vineyard</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -28,11 +28,30 @@
 
   <link rel="stylesheet" href="css/style.css">
 
-
+<script>
+  function loadDoc() {
+    console.log(sessionStorage.getItem("orderJson"));
+    var orderReq = sessionStorage.getItem("orderJson");
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {          
+          console.log(this.responseText);
+        }
+      };
+  
+    xhttp.open("POST", "http://localhost:8090/checkout", true);
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhttp.send(orderReq);
+    console.log("No. of session objects before" + Object.keys(sessionStorage))
+    sessionStorage.clear();
+    console.log("No. of session objects after" + Object.keys(sessionStorage))
+  
+  }
+</script>
 
 </head>
 
-<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" onload="loadDoc()">
 
   <div class="site-wrap">
 
@@ -52,7 +71,7 @@
         <div class="row align-items-center">
           <div class="col-12 text-center">
             <a href="index.html" class="site-logo">
-              <img src="images/logo.png" alt="Image" class="img-fluid">
+              <img src="images/winelogo2.jpg" alt="Image" class="img-fluid">
             </a>
           </div>
           <a href="#" class="mx-auto d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black"><span
@@ -97,9 +116,9 @@
         <div class="row">
           <div class="col-md-12 text-center">
             <span class="icon-check_circle display-3 text-success"></span>
-            <h2 class="display-3 text-black font-heading-serif">Thank you!</h2>
-            <p class="lead mb-5">You order was successfuly completed.</p>
-            <p><a href="shop.html" class="btn btn-md height-auto px-4 py-3 btn-primary">Back to store</a></p>
+            <h2 class="display-3 text-black font-heading-serif">Thank you for shopping with Wines N Things!</h2>            
+            <p class="lead mb-5">Your <a href="orderPage.html" class="d-inline-block">order</a> was successfuly placed. You will get an email shortly with the details of it.</p>
+            <p><a href="shop.html" class="btn btn-md height-auto px-4 py-3 btn-primary">Return to store</a></p>
           </div>
         </div>
       </div>
@@ -125,10 +144,11 @@
           <div class="col-12">
             <div class="copyright">
                 <p>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </p>
+                Copyright &copy;
+                <script>document.write(new Date().getFullYear());</script> All rights reserved | This website is managed
+                with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="#" target="_blank">Blossoms
+                  Vineyard Inc.</a>
+              </p>
 
 
 
