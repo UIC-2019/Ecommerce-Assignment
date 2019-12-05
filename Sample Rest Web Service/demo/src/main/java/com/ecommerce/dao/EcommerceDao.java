@@ -144,7 +144,7 @@ public class EcommerceDao {
 	  		
 	  		
 		
-		String insertOrderSql = "INSERT INTO Order VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
+		String insertOrderSql = "INSERT INTO Orders VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		ps = con.prepareStatement(insertOrderSql);
 		
@@ -156,6 +156,7 @@ public class EcommerceDao {
 		ps.setString(6, "$"+String.valueOf(TotalPrice));
 		ps.setString(7, cust.getEmail());
 		ps.setString(8, "link");
+		ps.setString(9, "Order Placed");
 		
 		
 
@@ -205,7 +206,6 @@ public class EcommerceDao {
 			ps.executeUpdate();
 		
 	}
-
 
 
 
