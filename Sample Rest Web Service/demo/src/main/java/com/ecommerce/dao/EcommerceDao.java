@@ -206,6 +206,42 @@ public class EcommerceDao {
 			ps.executeUpdate();
 		
 	}
+	
+	
+		public static void updateServiceRequestTable(ServiceRequest req) throws SQLException
+	{
+		//insert data into ServiceRequest table
+		
+		
+		Connection con=DBConnection.getCon();
+		
+		//double TotalOrderRevenue = 
+		//int TotalOrderQty = 0;
+		PreparedStatement ps;
+		
+		
+		String insertRequestSql = "INSERT INTO ServiceRequest(firstName, lastName, email, phone, message, orderId) VALUES ( ?, ?, ?, ?, ?, ?)";
+
+		ps = con.prepareStatement(insertRequestSql);
+		
+		ps.setString(1, req.getFirstName());
+		ps.setString(2, req.getLastName());
+		ps.setString(3, req.getEmail());
+		ps.setString(4, req.getPhone());
+		ps.setString(5, req.getMessage());
+		ps.setString(6, req.getOrderId());
+		
+		
+
+		try {
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	      
+		
+	}
 
 
 
