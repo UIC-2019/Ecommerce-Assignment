@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Wines N Things &mdash; Blossoms Vineyard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+  <link href="https://fonts.googleapis.com/css?family=Cinzel:400,700|Montserrat:400,700|Roboto&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+  <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+
+  <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+
+  <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+
+  <link rel="stylesheet" href="css/aos.css">
+  <link href="css/jquery.mb.YTPlayer.min.css" media="all" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="css/style.css">
+
+
+  <script>
+
+    function loadDoc() {
+      console.log("Cost of Cart : " + sessionStorage.getItem("cartCost"));
+      var cart = Object.keys(sessionStorage);
+      console.log("No of objects in session : " + cart.length);
+      var reqString = '{"item":[';
+      var cartEmptyFlag = false;
+      for (var i = 0; i < cart.length; i++) {
+
+        if (cart[i].includes('Quantity')) {
+          cartEmptyFlag = true;
+          var itemArray = cart[i].split("Quantity");
+          console.log("ProductId in session : " + itemArray[0]);
+          var item = itemArray[0];
+          console.log("Cart Quantity in session : " + sessionStorage.getItem(cart[i]))
+          var quantity = parseInt(sessionStorage.getItem(cart[i]));
+          reqString = reqString.concat('{"productId":"');
+          reqString = reqString.concat(item);
+          reqString = reqString.concat('","quantity":"');
+          reqString = reqString.concat(quantity);
+          reqString = reqString.concat('"},');
+        }
+      }
+      reqString = reqString.concat(']}');
+      reqString = reqString.replace(',]', ']');
+      console.log("String request : " + reqString);
+      sessionStorage.setItem("postRequest", reqString);
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          var array = xhttp.responseText.split("###");
+          document.getElementById("orderTableContainer").innerHTML =
+            this.responseText;
+        }
+      };
+      if (cartEmptyFlag) {
+        xhttp.open("POST", "http://localhost:8084/preCheckout", true);
+        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhttp.send(sessionStorage.getItem("postRequest"));
+      } else {
+        document.getElementById("orderTableContainer").innerHTML =
+          '<tr><td>X<strong class="mx-2">x</strong>X</td><td>X</td></tr><tr><td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td><td class="text-black">$0.00</td></tr><tr><td class="text-black font-weight-bold"><strong>Order Total</strong></td><td class="text-black font-weight-bold"><strong>$0.00</strong></td></tr>';
+
+      }
+    }
+
+    function processOrder() {
+      var orderTotal = document.getElementById("orderTotal").value;
+      var cart = Object.keys(sessionStorage);
+      var reqString = '{"item":[';
+      var cartEmptyFlag = true;
+      for (var i = 0; i < cart.length; i++) {
+
+        if (cart[i].includes('Quantity')) {
+          cartEmptyFlag = false;
+          var itemArray = cart[i].split("Quantity");
+          console.log("ProductId in session : " + itemArray[0]);
+          var item = itemArray[0];
+          console.log("Cart Quantity in session : " + sessionStorage.getItem(cart[i]))
+          var quantity = parseInt(sessionStorage.getItem(cart[i]));
+          reqString = reqString.concat('{"productId":"');
+          reqString = reqString.concat(item);
+          reqString = reqString.concat('","quantity":"');
+          reqString = reqString.concat(quantity);
+          reqString = reqString.concat('"},');
+        }
+      }
+      if(cartEmptyFlag){
+        alert("Cart is empty. Nothing to checkout!");
+      } else {
+        var countryOption = document.getElementById("c_country");      
+      var country = countryOption.options[countryOption.selectedIndex].text;
+      reqString = reqString.concat('],"customer":{"firstName":"');
+      reqString = reqString.replace(',]', ']');
+      reqString = reqString.concat(document.getElementById("c_fname").value).concat('","lastName":"')
+      reqString = reqString.concat(document.getElementById("c_lname").value).concat('","address":"')
+      reqString = reqString.concat(document.getElementById("c_address").value).concat('","city":"')
+      reqString = reqString.concat(document.getElementById("c_city").value).concat('","state":"')
+      reqString = reqString.concat(document.getElementById("c_state").value).concat('","country":"')
+      reqString = reqString.concat(country).concat('","zip":"')
+      reqString = reqString.concat(document.getElementById("c_zip").value).concat('","email":"')
+      reqString = reqString.concat(document.getElementById("c_email").value).concat('","phone":"')
+      reqString = reqString.concat(document.getElementById("c_phone").value).concat('","ccNo":"')
+      reqString = reqString.concat(document.getElementById("c_ccNo").value).concat('","ccExpiry":"')
+      reqString = reqString.concat(document.getElementById("c_ccExp").value).concat('","ccCVV":"')
+      reqString = reqString.concat(document.getElementById("c_ccCvv").value).concat('"},"orderTotal":"');
+      reqString = reqString.concat(document.getElementById("orderTotal").textContent).concat('"}');
+      sessionStorage.setItem("orderJson", reqString);
+      window.location.href = "http://localhost:8085/Wines/thankyou.html";
+      }
+      
+    }
+    function validateTextBox(id) {
+     if (document.getElementById(id).value != "") {} else {
+       var element = document.getElementById(id).getAttribute("name");
+        var index = element.indexOf('_');
+        var name = element.substr(index+1)
+        alert(name+" cannot be empty");
+    }
+}
+
+  </script>
+</head>
+
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" onload="loadDoc()">
+
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+
+
+
+    <div class="header-top">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-12 text-center">
+            <a href="index.html" class="site-logo">
+              <img src="images/winelogo2.jpg" alt="Image" class="img-fluid">
+            </a>
+          </div>
+          <a href="#" class="mx-auto d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black"><span
+              class="icon-menu h3"></span></a>
+        </div>
+      </div>
+
+
+
+
+      <div class="site-navbar py-2 js-sticky-header site-navbar-target d-none pl-0 d-lg-block" role="banner">
+
+        <div class="container">
+          <div class="d-flex align-items-center">
+
+            <div class="mx-auto">
+              <nav class="site-navigation position-relative text-left" role="navigation">
+                <ul class="site-menu main-menu js-clone-nav mx-auto d-none pl-0 d-lg-block border-none">
+                  <li><a href="index.html" class="nav-link text-left">Home</a></li>
+                  <li><a href="about.html" class="nav-link text-left">About</a></li>
+                  <li><a href="shop.html" class="nav-link text-left">Wines</a></li>
+                  <li class="active"><a href="shop.html" class="nav-link text-left">Shop</a></li>
+                  <li><a href="contact.html" class="nav-link text-left">Contact</a></li>
+                </ul>
+              </nav>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md-12">
+            <div class="bg-light rounded p-3">
+              <p class="mb-0">Returning customer? <a href="#" class="d-inline-block">Login coming soon</a> </p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-5 mb-md-0">
+            <h2 class="h3 mb-3 text-black font-heading-serif">Billing Details</h2>
+            <div class="p-3 p-lg-5 border">
+              <div class="form-group">
+                <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
+                <select id="c_country" class="form-control" required>
+                  <option value="1">Select a country</option>
+                  <option value="2">United States</option>
+                  <option value="3">United Kingdom</option>
+                  <option value="4">India</option>
+                  <option value="5">France</option>
+                  <option value="6">Portugal</option>
+                  <option value="7">Spain</option>
+                  <option value="8">Mexico</option>
+                  <option value="9">Dominican Republic</option>
+                </select>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="c_fname" class="text-black">First Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="c_fname" name="c_fname" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="c_lname" class="text-black">Last Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="c_lname" name="c_lname" required>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <label for="c_companyname" class="text-black">Company Name </label>
+                  <input type="text" class="form-control" id="c_companyname" name="c_companyname" required>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <label for="c_address" class="text-black">Address <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="c_address" name="c_address" placeholder="Street address" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-md-12">
+                  <label for="c_city" class="text-black">city <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="c_city" name="c_city" required>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="c_state" class="text-black">State <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="c_state" name="c_state" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="c_zip" class="text-black">Posta / Zip <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="c_zip" name="c_zip" required>
+                </div>
+              </div>
+
+              <div class="form-group row mb-5">
+                <div class="col-md-6">
+                  <label for="c_email" class="text-black">Email Address <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="c_email" name="c_email" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="c_phone" class="text-black">Phone <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="c_phone" name="c_phone" placeholder="Phone Number" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="c_create_account" class="text-black" data-toggle="collapse" href="#create_an_account"
+                  role="button" aria-expanded="false" aria-controls="create_an_account"><input type="checkbox" value="1"
+                    id="c_create_account" disabled="true"> Create an account?</label>
+                <div class="collapse" id="create_an_account">
+                  <div class="py-2">
+                    <p class="mb-3">Create an account by entering the information below. If you are a returning customer
+                      please login at the top of the page.</p>
+                    <div class="form-group">
+                      <label for="c_account_password" class="text-black">Account Password</label>
+                      <input type="email" class="form-control" id="c_account_password" name="c_account_password"
+                        placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="c_order_notes" class="text-black">Order Notes</label>
+                <textarea name="c_order_notes" id="c_order_notes" cols="30" rows="5" class="form-control"
+                  placeholder="Write your notes here..."></textarea>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row mb-5">
+              <div class="col-md-12">
+                <h2 class="h3 mb-3 text-black font-heading-serif">Your Order</h2>
+                <div class="p-3 p-lg-5 border">
+                  <table class="table site-block-order-table mb-5">
+                    <thead>
+                      <th>Products</th>
+                      <th>Total</th>
+                    </thead>
+                    <tbody id="orderTableContainer">
+
+                    </tbody>
+                  </table>
+
+                  <div class="border mb-3 p-3 rounded">
+                    <input placeholder="16 digit credit card number" minlength="16" maxlength="19" type="text"
+                      class="form-control" id="c_ccNo" name="c_ccNo" required>
+                  </div>
+
+                  <div class="border mb-3 p-3 rounded">
+                    <input placeholder="MM/YY Expiry" maxlength="5" type="text" class="form-control" id="c_ccExp"
+                      name="c_ccExp" required>
+                  </div>
+
+                  <div class="border mb-5 p-3">
+                    <input placeholder="CVV" minlength="3" maxlength="4" type="text" class="form-control" id="c_ccCvv"
+                      name="c_ccCvv" required>
+                  </div>
+
+                  <div class="form-group">
+                    <a class="btn btn-primary btn-lg btn-block" onclick="processOrder()">Place
+                      Order</a>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- </form> -->
+      </div>
+    </div>
+
+
+
+
+    <div class="footer">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-12 text-center">
+            <div class="social-icons">
+              <a href="#"><span class="icon-facebook"></span></a>
+              <a href="#"><span class="icon-twitter"></span></a>
+              <a href="#"><span class="icon-youtube"></span></a>
+              <a href="#"><span class="icon-instagram"></span></a>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="copyright">
+              <p>
+                Copyright &copy;
+                <script>document.write(new Date().getFullYear());</script> All rights reserved | This website is managed
+                with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="#" target="_blank">Blossoms
+                  Vineyard Inc.</a>
+              </p>
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <!-- .site-wrap -->
+
+
+  <!-- loader -->
+  <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+      <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+      <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+        stroke="#ff5e15" /></svg></div>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/jquery.countdown.min.js"></script>
+  <script src="js/bootstrap-datepicker.min.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/jquery.fancybox.min.js"></script>
+  <script src="js/jquery.sticky.js"></script>
+  <script src="js/jquery.mb.YTPlayer.min.js"></script>
+
+
+
+
+  <script src="js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Wines N Things &mdash; Blossoms Vineyard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Cinzel:400,700|Montserrat:400,700|Roboto&display=swap" rel="stylesheet"> 
+
+  <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+  <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+
+  <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+
+  <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+
+  <link rel="stylesheet" href="css/aos.css">
+  <link href="css/jquery.mb.YTPlayer.min.css" media="all" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="css/style.css">
+<script>
+      function loadDoc() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("wineContainer").innerHTML =
+            this.responseText;
+          }
+        };
+        xhttp.open("GET", "http://localhost:8084/products", true);
+        xhttp.send();
+      }
+      function findGetParameter(parameterName) {
+           var result = null,
+               tmp = [];
+           var items = location.search.substr(1).split("&");
+           for (var index = 0; index < items.length; index++) {
+               tmp = items[index].split("=");
+               if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+          }
+        return result;
+      }
+         function storeCart(){
+           var cartQuantity = document.getElementById("wineQuantity").value;
+           var productId = findGetParameter("productId")
+           sessionStorage.setItem(productId+"Quantity", cartQuantity);
+           var cart = sessionStorage.getItem(productId+"Quantity");
+           console.log(cart);
+            
+         }
+
+</script>
+
+
+
+</head>
+
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" onload="loadDoc()">
+
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+
+
+    
+    <div class="header-top">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-12 text-center">
+            <a href="index.html" class="site-logo">
+              <img src="images/winelogo2.jpg" alt="Image" class="img-fluid">
+            </a>
+          </div>
+          <a href="#" class="mx-auto d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black"><span
+                class="icon-menu h3"></span></a>
+        </div>
+      </div>
+      
+
+
+      
+      <div class="site-navbar py-2 js-sticky-header site-navbar-target d-none pl-0 d-lg-block" role="banner">
+
+      <div class="container">
+        <div class="d-flex align-items-center">
+          
+          <div class="mx-auto">
+            <nav class="site-navigation position-relative text-left" role="navigation">
+              <ul class="site-menu main-menu js-clone-nav mx-auto d-none pl-0 d-lg-block border-none">
+                <li><a href="index.html" class="nav-link text-left">Home</a></li>
+                <li><a href="about.html" class="nav-link text-left">About</a></li>
+                <li><a href="shop.html" class="nav-link text-left">Wines</a></li>
+                <li class="active"><a href="shop.html" class="nav-link text-left">Shop</a></li>
+                <li><a href="contact.html" class="nav-link text-left">Contact</a></li>
+              </ul>                                                                                                                                                                                                                                                                                         
+            </nav>
+          </div>         
+        </div>
+      </div>
+    </div>    
+    </div>
+
+    <div class="site-section mt-5">
+      <div class="container">
+
+        <div class="row mb-5">
+          <div class="col-12 section-title text-center mb-5">
+            <h2 class="d-block">Our Products</h2>
+            <p>The finest collections of Red and White wines made with best of the vines at Blossoms Vineyard!</p>
+          </div>
+        </div>
+
+        <div class="row" id="wineContainer">
+         loading...
+        </div>
+      </div>
+    </div>
+
+    <!--<div class="hero-2" style="background-image: url('images/hero_2.jpg');">
+     <div class="container">
+        <div class="row justify-content-center text-center align-items-center">
+          <div class="col-md-8">
+            <span class="sub-title">Welcome</span>
+            <h2>Wines For Everyone</h2>
+          </div>
+        </div>
+      </div>
+    </div>-->
+
+    <div class="site-section bg-light">
+      <div class="container">
+        <div class="owl-carousel owl-slide-3 owl-slide">
+        
+          <blockquote class="testimony">
+            <img src="images/person_1.jpg" alt="Image">
+            <p>&ldquo;Exclusive collection of wines. Red, white, Rose; all in one place. Wide range of prices from most reasonable to highly exclusive. One stop shop for all my wine purchases.&rdquo;</p>
+            <p class="small text-primary">&mdash; Collin Miller</p>
+          </blockquote>
+          <blockquote class="testimony">
+            <img src="images/person_2.jpg" alt="Image">
+            <p>&ldquo;Exclusive collection of wines. Red, white, Rose; all in one place. Wide range of prices from most reasonable to highly exclusive. One stop shop for all my wine purchases.&rdquo;</p>
+            <p class="small text-primary">&mdash; Harley Perkins</p>
+          </blockquote>
+          <blockquote class="testimony">
+            <img src="images/person_3.jpg" alt="Image">
+            <p>&ldquo;Exclusive collection of wines. Red, white, Rose; all in one place. Wide range of prices from most reasonable to highly exclusive. One stop shop for all my wine purchases.&rdquo;</p>
+            <p class="small text-primary">&mdash; Levi Morris</p>
+          </blockquote>
+          <blockquote class="testimony">
+            <img src="images/person_1.jpg" alt="Image">
+            <p>&ldquo;Exclusive collection of wines. Red, white, Rose; all in one place. Wide range of prices from most reasonable to highly exclusive. One stop shop for all my wine purchases.&rdquo;</p>
+            <p class="small text-primary">&mdash; Allie Smith</p>
+          </blockquote>
+        
+        </div>
+      </div>
+    </div>
+  
+
+    
+    
+    <div class="footer">
+      <div class="container">
+        
+        <div class="row">
+          <div class="col-12 text-center">
+            <div class="social-icons">
+              <a href="#"><span class="icon-facebook"></span></a>
+              <a href="#"><span class="icon-twitter"></span></a>
+              <a href="#"><span class="icon-youtube"></span></a>
+              <a href="#"><span class="icon-instagram"></span></a>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="copyright">
+                <p>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This website is managed with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="#" target="_blank" >Blossoms Vineyard Inc.</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+  </div>
+  <!-- .site-wrap -->
+
+
+  <!-- loader -->
+  <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#ff5e15"/></svg></div>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/jquery.countdown.min.js"></script>
+  <script src="js/bootstrap-datepicker.min.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/jquery.fancybox.min.js"></script>
+  <script src="js/jquery.sticky.js"></script>
+  <script src="js/jquery.mb.YTPlayer.min.js"></script>
+
+
+
+
+  <script src="js/main.js"></script>
+
+</body>
+
+</html>

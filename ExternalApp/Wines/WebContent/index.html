@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Wines N Things &mdash; Blossoms Vineyard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Cinzel:400,700|Montserrat:400,700|Roboto&display=swap" rel="stylesheet"> 
+
+  <link rel="stylesheet" href="fonts/icomoon/style.css">  
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+  <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+
+  <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+
+  <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+
+  <link rel="stylesheet" href="css/aos.css">
+  <link href="css/jquery.mb.YTPlayer.min.css" media="all" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <script>
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("wineContent").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "http://localhost:8084/employees", true);
+  xhttp.send();
+}
+
+</script>
+
+
+</head>
+
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" onload="loadDoc()">
+
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+
+
+    
+    <div class="header-top">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-12 text-center">
+            <a href="index.html" class="site-logo">
+              <img src="images/winelogo2.jpg" alt="Image" class="img-fluid">
+            </a>
+          </div>
+          <a href="#" class="mx-auto d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black"><span
+                class="icon-menu h3"></span></a>
+        </div>
+      </div>
+      
+
+
+      
+      <div class="site-navbar py-2 js-sticky-header site-navbar-target d-none pl-0 d-lg-block" role="banner">
+
+      <div class="container">
+        <div class="d-flex align-items-center">
+          
+          <div class="mx-auto">
+            <nav class="site-navigation position-relative text-left" role="navigation">
+              <ul class="site-menu main-menu js-clone-nav mx-auto d-none pl-0 d-lg-block border-none">
+                <li class="active"><a href="index.html" class="nav-link text-left">Home</a></li>
+                <li><a href="about.html" class="nav-link text-left">About</a></li>
+                <li><a href="shop.html" class="nav-link text-left">Wines</a></li>
+                <li><a href="shop.html" class="nav-link text-left">Shop</a></li>
+                <li><a href="contact.html" class="nav-link text-left">Contact</a></li>
+              </ul>                                                                                                                                                                                                                                                                                         
+            </nav>
+
+          </div>
+         
+        </div>
+      </div>
+
+    </div>
+    
+    </div>
+
+    
+    <div class="owl-carousel hero-slide owl-style">
+      <div class="intro-section container" style="background-image: url('images/hero_1.jpg');">
+        <div class="row justify-content-center text-center align-items-center">
+          <div class="col-md-8">
+            <span class="sub-title">Royal Wine</span>
+            <h1>Grape Wine</h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="intro-section container" style="background-image: url('images/hero_2.jpg');">
+        <div class="row justify-content-center text-center align-items-center">
+          <div class="col-md-8">
+            <span class="sub-title">Welcome</span>
+            <h1>Wines For Everyone</h1>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    
+    
+
+    <div class="site-section mt-5">
+      <div class="container">
+
+        <div class="row mb-5">
+          <div class="col-12 section-title text-center mb-5">
+            <h2 class="d-block">Our Products</h2>
+            <p>The finest collections of Red and White wines made with best of the vines at Blossoms Vineyard!</p>
+            <p><a href="shop.html">View All Products <span class="icon-long-arrow-right"></span></a></p>
+          </div>
+        </div>
+        <div class="row" id="wineContent">
+          loading...
+        </div>
+      </div>
+    </div>
+
+    <!--<div class="hero-2" style="background-image: url('images/hero_2.jpg');">
+     <div class="container">
+        <div class="row justify-content-center text-center align-items-center">
+          <div class="col-md-8">
+            <span class="sub-title">Welcome</span>
+            <h2>Wines For Everyone</h2>
+          </div>
+        </div>
+      </div>
+    </div>-->
+
+    <div class="site-section bg-light">
+      <div class="container">
+        <div class="owl-carousel owl-slide-3 owl-slide">
+        
+          <blockquote class="testimony">
+            <img src="images/person_1.jpg" alt="Image">
+            <p>&ldquo;Exclusive collection of wines. Red, white, Rose; all in one place. Wide range of prices from most reasonable to highly exclusive. One stop shop for all my wine purchases.&rdquo;</p>
+            <p class="small text-primary">&mdash; Collin Miller</p>
+          </blockquote>
+          <blockquote class="testimony">
+            <img src="images/person_2.jpg" alt="Image">
+            <p>&ldquo;Exclusive collection of wines. Red, white, Rose; all in one place. Wide range of prices from most reasonable to highly exclusive. One stop shop for all my wine purchases.&rdquo;</p>
+            <p class="small text-primary">&mdash; Harley Perkins</p>
+          </blockquote>
+          <blockquote class="testimony">
+            <img src="images/person_3.jpg" alt="Image">
+            <p>&ldquo;Exclusive collection of wines. Red, white, Rose; all in one place. Wide range of prices from most reasonable to highly exclusive. One stop shop for all my wine purchases.&rdquo;</p>
+            <p class="small text-primary">&mdash; Levi Morris</p>
+          </blockquote>
+          <blockquote class="testimony">
+            <img src="images/person_1.jpg" alt="Image">
+            <p>&ldquo;Exclusive collection of wines. Red, white, Rose; all in one place. Wide range of prices from most reasonable to highly exclusive. One stop shop for all my wine purchases.&rdquo;</p>
+            <p class="small text-primary">&mdash; Allie Smith</p>
+          </blockquote>
+        
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="site-section bg-light">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-12 section-title text-center mb-5">
+            <h2 class="d-block">Wine's Blog</h2>
+            <p>Browse through what the most popular wine enthusiasts have to say!</p>
+            <p><!--<a href="#">View All Products <span class="icon-long-arrow-right"></span></a>--></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 mb-4 mb-lg-0 col-md-6">
+            <div class="post-entry-1">
+              <a href="https://usawineratings.com/en/blog/wine-and-food-3372/matching-food-wine-its-all-in-good-taste-190.htm" target="_blank"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
+              <h2><a href="https://usawineratings.com/en/blog/wine-and-food-3372/matching-food-wine-its-all-in-good-taste-190.htm" target="_blank">Food and Wine Match: It's all in good taste.</a></h2>
+              <p>Pairing food and wine does not have to be confusing or daunting. In fact, there are a few simple rules that you can follow when ordering a glass or bottle of wine with your restaurant meal.</p>
+              <div class="post-meta">
+                <span class="d-block"><a href="#">USA Wine Ratings</a> <a href="https://usawineratings.com/en/blog/wine-and-food-3372/matching-food-wine-its-all-in-good-taste-190.htm" target="_blank"> Blog</a></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 mb-4 mb-lg-0 col-md-6">
+            <div class="post-entry-1">
+              <a href="https://www.winemag.com/2015/01/20/wine-for-beginners/" target="_blank"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
+              <h2><a href="https://www.winemag.com/2015/01/20/wine-for-beginners/" target="_blank">All you need to know about Wines: A guide for beginners.</a></h2>
+              <p>Want to kick start your ongoing exploration of wine? We’ve got you covered. These simple and smart guidelines will help you discover your palate and launch your long and tasty journey to understanding wine.</p>
+              <div class="post-meta">
+                <span class="d-block"><a href="#">Paul Gregutt's (Wine Enthusiast)</a> <a href="https://www.winemag.com/2015/01/20/wine-for-beginners/" target="_blank"> Podcast</a></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 mb-4 mb-lg-0 col-md-6">
+            <div class="post-entry-1">
+              <a href="https://usawineratings.com/en/podcasts/" target="_blank"><img src="images/wineregion.jpg" alt="Image" class="img-fluid"></a>
+              <h2><a href="https://usawineratings.com/en/podcasts/" target="_blank">Explore the most popular Wine region in the world.</a></h2>
+              <p>The secrete of the wine colour, odor and taste does not only come from the grapes. It also depends on the geography of vines. Check the podcast to learn more.</p>
+              <div class="post-meta">
+                <span class="d-block"><a href="#">USA Wine Ratings</a> <a href="https://usawineratings.com/en/podcasts/" target="_blank"> Podcast</a></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="footer">
+      <div class="container">
+        
+        <div class="row">
+          <div class="col-12 text-center">
+            <div class="social-icons">
+              <a href="#"><span class="icon-facebook"></span></a>
+              <a href="#"><span class="icon-twitter"></span></a>
+              <a href="#"><span class="icon-youtube"></span></a>
+              <a href="#"><span class="icon-instagram"></span></a>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="copyright">
+                <p>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This website is managed with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="#" target="_blank" >Blossoms Vineyard Inc.</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+  </div>
+  <!-- .site-wrap -->
+
+
+  <!-- loader -->
+  <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#ff5e15"/></svg></div>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/jquery.countdown.min.js"></script>
+  <script src="js/bootstrap-datepicker.min.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/jquery.fancybox.min.js"></script>
+  <script src="js/jquery.sticky.js"></script>
+  <script src="js/jquery.mb.YTPlayer.min.js"></script>
+
+
+
+
+  <script src="js/main.js"></script>
+
+</body>
+
+</html>
