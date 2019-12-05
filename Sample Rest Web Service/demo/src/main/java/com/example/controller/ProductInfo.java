@@ -1,7 +1,19 @@
 package com.example.controller;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
+import java.util.Properties;
+
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +27,8 @@ import com.ecommerce.dao.EcommerceDao;
 import com.example.beans.Cart;
 import com.example.beans.Checkout;
 import com.example.beans.Item;
+import com.example.beans.ServiceRequest;
+import com.ecommerce.util.Constants;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
@@ -181,4 +195,45 @@ public class ProductInfo {
 		return "Request submitted successfully!";
 	}
 	
+	
+	public String sendEmail(String senderMail) {
+		try {
+			//Scanner to get user input
+			String status = "success";
+			String sendersmail = senderMail;
+		    String host = "smtp.gmail.com";
+		 // Sender's email ID 
+		    String from = Constants.USERNAME;
+		    Properties props = System.getProperties();
+		    props.put("mail.smtp.host", host);
+		    props.put("mail.smtp.user", from);
+		    props.put("mail.smtp.password", Constants.PASSWORD);
+		    props.put("mail.smtp.port", "587"); 
+		    props.put("mail.smtp.auth", "true");
+		    props.put("mail.smtp.starttls.enable", "true");
+		    	 // Get the Session object.
+		        Session session = Session.getDefaultInstance(props, null);
+		        MimeMessage message = new MimeMessage(session);
+		        message.setFrom(new InternetAddress(from));
+		        message.addRecipients(Message.RecipientType.TO, sendersmail);
+		     // Set Subject: header field
+		        message.setSubject("Order Confirmation");
+		     // Set Content: text field
+		        message.setText(Constants.MESSAGE);
+		        String filename = "FileToMail.txt";
+		        //Attach File: text field
+		         DataSource source = new FileDataSource(filename);
+		         message.setDataHandler(new DataHandler(source));
+		         message.setFileName(filename);
+		        Transport transport = session.getTransport("smtp");
+		     // Connecting with username and password
+		        transport.connect("smtp.gmail.com", Constants.USERNAME, Constants.PASSWORD);
+		        status = "success";
+		        transport.sendMessage(message, message.getAllRecipients());
+		        return status;
+		} catch(MessagingException e){
+			        System.out.println(e.getMessage());
+			        return "Error";
+			    }
+	}
 }
