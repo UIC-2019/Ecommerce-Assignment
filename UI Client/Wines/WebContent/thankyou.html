@@ -31,6 +31,28 @@
 <script>
   function loadDoc() {
     console.log(sessionStorage.getItem("orderJson"));
+    
+    var cart = Object.keys(sessionStorage);
+    
+    for (var i = 0; i < cart.length; i++) {
+
+      if (cart[i].includes('Quantity')) {
+        
+        var itemArray = cart[i].split("Quantity");
+        console.log("ProductId in session : " + itemArray[0]);
+        var item = itemArray[0];
+        console.log("Cart Quantity in session : " + sessionStorage.getItem(cart[i]))
+        var quantity = parseInt(sessionStorage.getItem(cart[i]));
+        //reqString = reqString.concat('{"productId":"');
+        console.log("ProductID : "+item);
+        console.log("Quantity : "+quantity);
+
+      }
+    }
+    
+    
+    
+    
     var orderReq = sessionStorage.getItem("orderJson");
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {

@@ -12,7 +12,7 @@ import com.example.beans.EmployeeRegistration;
 import com.example.beans.EmployeeWrapper;
 
 
-@CrossOrigin(origins= "http://localhost:8085")
+@CrossOrigin(origins= "http://localhost:8080")
 @RestController
 public class EmpRegistrationController {
 

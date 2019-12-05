@@ -20,32 +20,23 @@ public class Cart {
 		this.items = items;
 	}
 	
-	public static void main(String[] args) {
-		ObjectMapper Obj = new ObjectMapper(); 
-		  
-        try { 
-  
-        	Cart cart = new Cart();
-        	ArrayList<Item> arr = new ArrayList<Item>();
-        	for (int i=0; i<3; i++) {
-        		Item item = new Item();
-        		item.setProductId("101");
-        		item.setQuantity("3");
-        		arr.add(item);
-        	}
-        	cart.setItem(arr);
-        	
-        	
-        	// get Oraganisation object as a json string 
-            String jsonStr = Obj.writeValueAsString(cart); 
-  
-            // Displaying JSON String 
-            System.out.println(jsonStr); 
-        } 
-  
-        catch (IOException e) { 
-            e.printStackTrace(); 
-        } 
-	}
+	/*
+	 * public static void main(String[] args) { ObjectMapper Obj = new
+	 * ObjectMapper();
+	 * 
+	 * try {
+	 * 
+	 * Cart cart = new Cart(); ArrayList<Item> arr = new ArrayList<Item>(); for (int
+	 * i=0; i<3; i++) { Item item = new Item(); item.setProductId("101");
+	 * item.setQuantity("3"); arr.add(item); } cart.setItem(arr);
+	 * 
+	 * 
+	 * // get Oraganisation object as a json string String jsonStr =
+	 * Obj.writeValueAsString(cart);
+	 * 
+	 * // Displaying JSON String System.out.println(jsonStr); }
+	 * 
+	 * catch (IOException e) { e.printStackTrace(); } }
+	 */
 	
 }
