@@ -90,7 +90,7 @@
             console.log("After Cart update : "+Object.keys(sessionStorage));                
             var i = r.parentNode.parentNode.rowIndex;
             document.getElementById("cartTableBody").deleteRow(i-1);
-            window.location.href = "http://localhost:8080/Wines/cart.html";
+            document.location.reload(true);
         }
         function checkout(){
            var cartTotal = document.getElementById("cartCostId").textContent;

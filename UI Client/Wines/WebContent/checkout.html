@@ -81,11 +81,11 @@
       var orderTotal = document.getElementById("orderTotal").value;
       var cart = Object.keys(sessionStorage);
       var reqString = '{"item":[';
-      var cartEmptyFlag = false;
+      var cartEmptyFlag = true;
       for (var i = 0; i < cart.length; i++) {
 
         if (cart[i].includes('Quantity')) {
-          cartEmptyFlag = true;
+          cartEmptyFlag = false;
           var itemArray = cart[i].split("Quantity");
           console.log("ProductId in session : " + itemArray[0]);
           var item = itemArray[0];
@@ -98,7 +98,10 @@
           reqString = reqString.concat('"},');
         }
       }
-      var countryOption = document.getElementById("c_country");      
+      if(cartEmptyFlag){
+        alert("Cart is empty. Nothing to checkout!");
+      } else {
+        var countryOption = document.getElementById("c_country");      
       var country = countryOption.options[countryOption.selectedIndex].text;
       reqString = reqString.concat('],"customer":{"firstName":"');
       reqString = reqString.replace(',]', ']');
@@ -117,7 +120,17 @@
       reqString = reqString.concat(document.getElementById("orderTotal").textContent).concat('"}');
       sessionStorage.setItem("orderJson", reqString);
       window.location.href = "http://localhost:8080/Wines/thankyou.html";
+      }
+      
     }
+    function validateTextBox(id) {
+     if (document.getElementById(id).value != "") {} else {
+       var element = document.getElementById(id).getAttribute("name");
+        var index = element.indexOf('_');
+        var name = element.substr(index+1)
+        alert(name+" cannot be empty");
+    }
+}
 
   </script>
 </head>
@@ -193,7 +206,7 @@
             <div class="p-3 p-lg-5 border">
               <div class="form-group">
                 <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
-                <select id="c_country" class="form-control">
+                <select id="c_country" class="form-control" required>
                   <option value="1">Select a country</option>
                   <option value="2">United States</option>
                   <option value="3">United Kingdom</option>
@@ -208,54 +221,54 @@
               <div class="form-group row">
                 <div class="col-md-6">
                   <label for="c_fname" class="text-black">First Name <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_fname" name="c_fname">
+                  <input type="text" class="form-control" id="c_fname" name="c_fname" required>
                 </div>
                 <div class="col-md-6">
                   <label for="c_lname" class="text-black">Last Name <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_lname" name="c_lname">
+                  <input type="text" class="form-control" id="c_lname" name="c_lname" required>
                 </div>
               </div>
 
               <div class="form-group row">
                 <div class="col-md-12">
                   <label for="c_companyname" class="text-black">Company Name </label>
-                  <input type="text" class="form-control" id="c_companyname" name="c_companyname">
+                  <input type="text" class="form-control" id="c_companyname" name="c_companyname" required>
                 </div>
               </div>
 
               <div class="form-group row">
                 <div class="col-md-12">
                   <label for="c_address" class="text-black">Address <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_address" name="c_address" placeholder="Street address">
+                  <input type="text" class="form-control" id="c_address" name="c_address" placeholder="Street address" required>
                 </div>
               </div>
 
               <div class="form-group">
                 <div class="col-md-12">
                   <label for="c_city" class="text-black">city <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_city" name="c_city">
+                  <input type="text" class="form-control" id="c_city" name="c_city" required>
                 </div>
               </div>
 
               <div class="form-group row">
                 <div class="col-md-6">
                   <label for="c_state" class="text-black">State <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_state" name="c_state">
+                  <input type="text" class="form-control" id="c_state" name="c_state" required>
                 </div>
                 <div class="col-md-6">
                   <label for="c_zip" class="text-black">Posta / Zip <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_zip" name="c_zip">
+                  <input type="text" class="form-control" id="c_zip" name="c_zip" required>
                 </div>
               </div>
 
               <div class="form-group row mb-5">
                 <div class="col-md-6">
                   <label for="c_email" class="text-black">Email Address <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_email" name="c_email">
+                  <input type="text" class="form-control" id="c_email" name="c_email" required>
                 </div>
                 <div class="col-md-6">
                   <label for="c_phone" class="text-black">Phone <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_phone" name="c_phone" placeholder="Phone Number">
+                  <input type="text" class="form-control" id="c_phone" name="c_phone" placeholder="Phone Number" required>
                 </div>
               </div>
 
@@ -300,18 +313,18 @@
                   </table>
 
                   <div class="border mb-3 p-3 rounded">
-                    <input placeholder="16 digit credit card number" minlength="16" maxlength="16" type="text"
-                      class="form-control" id="c_ccNo" name="c_ccNo">
+                    <input placeholder="16 digit credit card number" minlength="16" maxlength="19" type="text"
+                      class="form-control" id="c_ccNo" name="c_ccNo" required>
                   </div>
 
                   <div class="border mb-3 p-3 rounded">
                     <input placeholder="MM/YY Expiry" maxlength="5" type="text" class="form-control" id="c_ccExp"
-                      name="c_ccExp">
+                      name="c_ccExp" required>
                   </div>
 
                   <div class="border mb-5 p-3">
                     <input placeholder="CVV" minlength="3" maxlength="4" type="text" class="form-control" id="c_ccCvv"
-                      name="c_ccCvv">
+                      name="c_ccCvv" required>
                   </div>
 
                   <div class="form-group">
