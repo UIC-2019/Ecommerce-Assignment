@@ -188,10 +188,13 @@ public class ProductInfo {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/service-request")
 	@ResponseBody
-	public String submitRequest(@RequestBody ServiceRequest req) {
+	public String submitRequest(@RequestBody ServiceRequest req) throws SQLException {
 
 	//logic to insert record in feedback table	
+		
 
+		EcommerceDao.updateServiceRequestTable(req);
+		
 		return "Request submitted successfully!";
 	}
 	
