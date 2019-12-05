@@ -2,107 +2,124 @@ package com.example.beans;
 
 public class Customer {
 	
-	/*
-	 * EmailID
-	 */
-	private String EmailID;
-	/*
-	 * Fullname
-	 */
-	private String Fullname;
-	/*
-	 * Address
-	 */
-	private String Address;
-	/*
-	 * City
-	 */
-	private String City;
-	/*
-	 * State
-	 */
-	private String State;
-	/*
-	 * Zip
-	 */
-	private int Zip;
-	/*
-	 * MobNo
-	 */
-	private int MobNo;
-	/*
-	 * CreditCardNo
-	 */
-	private int CreditCardNo;
-	/*
-	 * CreditCardType
-	 */
-	private String CreditCardType;
-	/*
-	 * ExpDate
-	 */
-	private String ExpDate;
+	private String firstName;
 	
+	private String lastName;		
 	
+	private String address;
+	
+	private String city;
+	
+	private String state;
+	
+	private String country;
+	
+	private String zip;
+	
+	private String email;
+	
+	private String phone;
+	
+	private String ccNo;
+	
+	private String ccExpiry;
+	
+	private String ccCVV;
 
-	public String getEmailID() {
-		return EmailID;
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setEmailID(String emailID) {
-		EmailID = emailID;
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-	public String getFullname() {
-		return Fullname;
+
+	public String getLastName() {
+		return lastName;
 	}
-	public void setFullname(String fullname) {
-		Fullname = fullname;
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
+
 	public String getAddress() {
-		return Address;
+		return address;
 	}
+
 	public void setAddress(String address) {
-		Address = address;
+		this.address = address;
 	}
+
 	public String getCity() {
-		return City;
+		return city;
 	}
+
 	public void setCity(String city) {
-		City = city;
+		this.city = city;
 	}
+
 	public String getState() {
-		return State;
+		return state;
 	}
+
 	public void setState(String state) {
-		State = state;
+		this.state = state;
 	}
-	public int getZip() {
-		return Zip;
+
+	public String getCountry() {
+		return country;
 	}
-	public void setZip(int zip) {
-		Zip = zip;
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
-	public int getMobNo() {
-		return MobNo;
+
+	public String getZip() {
+		return zip;
 	}
-	public void setMobNo(int mobNo) {
-		MobNo = mobNo;
+
+	public void setZip(String zip) {
+		this.zip = zip;
 	}
-	public int getCreditCardNo() {
-		return CreditCardNo;
+
+	public String getEmail() {
+		return email;
 	}
-	public void setCreditCardNo(int creditCardNo) {
-		CreditCardNo = creditCardNo;
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public String getCreditCardType() {
-		return CreditCardType;
+
+	public String getPhone() {
+		return phone;
 	}
-	public void setCreditCardType(String creditCardType) {
-		CreditCardType = creditCardType;
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
-	public String getExpDate() {
-		return ExpDate;
+
+	public String getCcNo() {
+		return ccNo;
 	}
-	public void setExpDate(String expDate) {
-		ExpDate = expDate;
+
+	public void setCcNo(String ccNo) {
+		this.ccNo = ccNo;
 	}
+
+	public String getCcExpiry() {
+		return ccExpiry;
+	}
+
+	public void setCcExpiry(String ccExpiry) {
+		this.ccExpiry = ccExpiry;
+	}
+
+	public String getCcCVV() {
+		return ccCVV;
+	}
+
+	public void setCcCVV(String ccCVV) {
+		this.ccCVV = ccCVV;
+	}
+
 }
