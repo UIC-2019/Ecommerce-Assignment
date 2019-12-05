@@ -171,19 +171,14 @@ public class ProductInfo {
 		}
 		return finalDisplay;
 	}
-	/*
-	 * @RequestMapping(method = RequestMethod.POST, value="/checkout") public void
-	 * checkoutProcess () {
-	 * 
-	 * EcommerceDao ec= new EcommerceDao(); Customer cust = new Customer();
-	 * cust.setEmailID("temp"); cust.setAddress(null); cust.setFullname(null);
-	 * cust.setCity(null); cust.setCreditCardNo(0); cust.setCreditCardType(null);
-	 * cust.setExpDate(null); cust.setMobNo(0); cust.setCVV(0); cust.setZip(0);
-	 * cust.setState(null);
-	 * 
-	 * ec.updateCheckoutTables(cust);
-	 * 
-	 * }
-	 */
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/service-request")
+	@ResponseBody
+	public String submitRequest(@RequestBody ServiceRequest req) {
+
+	//logic to insert record in feedback table	
+
+		return "Request submitted successfully!";
+	}
 	
 }
