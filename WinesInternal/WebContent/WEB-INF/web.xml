@@ -5,13 +5,33 @@
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
- <description></description>
- <display-name>LoginController</display-name>
- <servlet-name>LoginController</servlet-name>
- <servlet-class>com.wines.controller.LoginController</servlet-class>
- </servlet>
- <servlet-mapping>
- <servlet-name>LoginController</servlet-name>
- <url-pattern>/LoginController</url-pattern>
- </servlet-mapping>
-  </web-app>
+    <description></description>
+    <display-name>LoginController</display-name>
+    <servlet-name>LoginController</servlet-name>
+    <servlet-class>com.internal.wines.controller.LoginController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginController</servlet-name>
+    <url-pattern>/LoginController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>VendorController</display-name>
+    <servlet-name>VendorController</servlet-name>
+    <servlet-class>com.internal.wines.controller.VendorController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>VendorController</servlet-name>
+    <url-pattern>/VendorController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LogoutServlet</display-name>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>com.internal.wines.controller.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+</web-app>
