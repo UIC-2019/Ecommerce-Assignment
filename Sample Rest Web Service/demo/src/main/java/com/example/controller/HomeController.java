@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.dao.EcommerceDao;
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:8085")
 @RestController
-public class EmpRetrieveController {
+public class HomeController {
 	static Object[] keySet;
 	static Map<String, String[]> products;
 	static {

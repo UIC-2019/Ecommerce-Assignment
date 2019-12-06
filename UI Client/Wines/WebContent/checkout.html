@@ -80,7 +80,7 @@
     function processOrder() {
       var orderTotal = document.getElementById("orderTotal").value;
       var cart = Object.keys(sessionStorage);
-      var reqString = '{"item":[';
+      var checkoutString = '{"items":[';
       var cartEmptyFlag = true;
       for (var i = 0; i < cart.length; i++) {
 
@@ -91,11 +91,11 @@
           var item = itemArray[0];
           console.log("Cart Quantity in session : " + sessionStorage.getItem(cart[i]))
           var quantity = parseInt(sessionStorage.getItem(cart[i]));
-          reqString = reqString.concat('{"productId":"');
-          reqString = reqString.concat(item);
-          reqString = reqString.concat('","quantity":"');
-          reqString = reqString.concat(quantity);
-          reqString = reqString.concat('"},');
+          checkoutString = checkoutString.concat('{"productId":"');
+          checkoutString = checkoutString.concat(item);
+          checkoutString = checkoutString.concat('","quantity":"');
+          checkoutString = checkoutString.concat(quantity);
+          checkoutString = checkoutString.concat('"},');
         }
       }
       if(cartEmptyFlag){
@@ -103,22 +103,22 @@
       } else {
         var countryOption = document.getElementById("c_country");      
       var country = countryOption.options[countryOption.selectedIndex].text;
-      reqString = reqString.concat('],"customer":{"firstName":"');
-      reqString = reqString.replace(',]', ']');
-      reqString = reqString.concat(document.getElementById("c_fname").value).concat('","lastName":"')
-      reqString = reqString.concat(document.getElementById("c_lname").value).concat('","address":"')
-      reqString = reqString.concat(document.getElementById("c_address").value).concat('","city":"')
-      reqString = reqString.concat(document.getElementById("c_city").value).concat('","state":"')
-      reqString = reqString.concat(document.getElementById("c_state").value).concat('","country":"')
-      reqString = reqString.concat(country).concat('","zip":"')
-      reqString = reqString.concat(document.getElementById("c_zip").value).concat('","email":"')
-      reqString = reqString.concat(document.getElementById("c_email").value).concat('","phone":"')
-      reqString = reqString.concat(document.getElementById("c_phone").value).concat('","ccNo":"')
-      reqString = reqString.concat(document.getElementById("c_ccNo").value).concat('","ccExpiry":"')
-      reqString = reqString.concat(document.getElementById("c_ccExp").value).concat('","ccCVV":"')
-      reqString = reqString.concat(document.getElementById("c_ccCvv").value).concat('"},"orderTotal":"');
-      reqString = reqString.concat(document.getElementById("orderTotal").textContent).concat('"}');
-      sessionStorage.setItem("orderJson", reqString);
+      checkoutString = checkoutString.concat('],"customer":{"firstName":"');
+      checkoutString = checkoutString.replace(',]', ']');
+      checkoutString = checkoutString.concat(document.getElementById("c_fname").value).concat('","lastName":"')
+      checkoutString = checkoutString.concat(document.getElementById("c_lname").value).concat('","address":"')
+      checkoutString = checkoutString.concat(document.getElementById("c_address").value).concat('","city":"')
+      checkoutString = checkoutString.concat(document.getElementById("c_city").value).concat('","state":"')
+      checkoutString = checkoutString.concat(document.getElementById("c_state").value).concat('","country":"')
+      checkoutString = checkoutString.concat(country).concat('","zip":"')
+      checkoutString = checkoutString.concat(document.getElementById("c_zip").value).concat('","email":"')
+      checkoutString = checkoutString.concat(document.getElementById("c_email").value).concat('","phone":"')
+      checkoutString = checkoutString.concat(document.getElementById("c_phone").value).concat('","ccNo":"')
+      checkoutString = checkoutString.concat(document.getElementById("c_ccNo").value).concat('","ccExpiry":"')
+      checkoutString = checkoutString.concat(document.getElementById("c_ccExp").value).concat('","ccCVV":"')
+      checkoutString = checkoutString.concat(document.getElementById("c_ccCvv").value).concat('"},"orderTotal":"');
+      checkoutString = checkoutString.concat(document.getElementById("orderTotal").textContent).concat('"}');
+      sessionStorage.setItem("orderJson", checkoutString);
       window.location.href = "http://localhost:8080/Wines/thankyou.html";
       }
       

@@ -9,6 +9,7 @@ import java.util.Map;
 import com.example.beans.Checkout;
 import com.example.beans.Customer;
 import com.example.beans.Item;
+import com.example.beans.ServiceRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -27,7 +28,7 @@ public class EcommerceDao {
 		//connection is fetched from connection provider
 		Connection con=DBConnection.getCon();
 		//query is done database
-		 PreparedStatement	ps = con.prepareStatement("select * from Product");
+		 PreparedStatement	ps = con.prepareStatement("select * from Product p inner join Inventory i on p.productId = i.productId where i.stockqty <> '0';");
 			ResultSet rs=ps.executeQuery();
 			while(rs.next()) {
 				String id  = rs.getString(1);
@@ -128,13 +129,16 @@ public class EcommerceDao {
 	    	  String productID = i.getProductId();
 	    	  int qty= Integer.parseInt(i.getQuantity());
 	    	  
-	    	  Sql = "select UnitSalePrice from Product where ProductID="+productID;
+	    	  Sql = "select UnitSalePrice from Product where ProductID='"+productID+"'";
 	    	  resultSet = statement.executeQuery(Sql);
+	    	  
+	    	  String rawPrice = "";
 	    	  while(resultSet.next())
 	    	  {
-	    		
+	    		  rawPrice = resultSet.getString(1);
 	    		  price = resultSet.getString(1).substring(1);
 	    	  }
+	    	  
 	    	  
 	  		double UnitSalePrice = Double.parseDouble(price);
 	  		double TotalPrice = qty*UnitSalePrice;
@@ -152,7 +156,7 @@ public class EcommerceDao {
 		ps.setString(2, localDate);
 		ps.setString(3, productID);
 		ps.setString(4, String.valueOf(qty));
-		ps.setString(5, resultSet.getString(1));
+		ps.setString(5, rawPrice);
 		ps.setString(6, "$"+String.valueOf(TotalPrice));
 		ps.setString(7, cust.getEmail());
 		ps.setString(8, "link");
@@ -170,18 +174,18 @@ public class EcommerceDao {
 	      
 	      //update Inventory table
 	      
-		Sql = "select stockqty from Inventory Order where productid = "+productID;
+		Sql = "select stockqty from Inventory where productid = '"+productID+"'";
 		
 		
 		rs1 = statement.executeQuery(Sql);
 		while(rs1.next())
 		{
-			stockqty = String.valueOf(Integer.parseInt((resultSet.getString(1)))-qty);
+			stockqty = String.valueOf(Integer.parseInt((rs1.getString(1)))-qty);
 		}
 		
 		
 		
-		String query = "update Inventory set qty = "+ stockqty +" where ProductID =" + productID ;
+		String query = "update Inventory set stockqty = '"+ stockqty +"' " + " where ProductID = '"  + productID + "'";
 	      PreparedStatement preparedStmt = con.prepareStatement(query);
 
 	      
@@ -192,7 +196,7 @@ public class EcommerceDao {
 	      
 	      //insert data into Sales table
 	      
-	      String insertSalesSql = "INSERT INTO Sales VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
+	      String insertSalesSql = "INSERT INTO Sales VALUES ( ?, ?, ?, ?)";
 
 			ps = con.prepareStatement(insertSalesSql);
 			
@@ -200,8 +204,7 @@ public class EcommerceDao {
 			ps.setString(1, OrderID);
 			ps.setString(2, String.valueOf(TotalOrderQty));
 			ps.setString(3, localDate);
-			ps.setString(4, cart.getOrderTotal());
-
+			ps.setString(4, cart.getOrderTotal());			
 			
 			ps.executeUpdate();
 		
