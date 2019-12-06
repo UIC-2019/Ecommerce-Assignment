@@ -75,6 +75,7 @@ $(document).ready(function() {
           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
         </div>
       </li>
+      <li><a href="${pageContext.request.contextPath}/logout" class="nav-link">Logout</a></li>
     </ul>
 
   </nav>
