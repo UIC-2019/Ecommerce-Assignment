@@ -27,10 +27,11 @@ import com.ecommerce.dao.EcommerceDao;
 import com.example.beans.Cart;
 import com.example.beans.Checkout;
 import com.example.beans.Item;
+import com.example.beans.Product;
 import com.example.beans.ServiceRequest;
 import com.ecommerce.util.Constants;
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:8085")
 @RestController
 
 public class ProductInfo {
@@ -49,8 +50,9 @@ public class ProductInfo {
 	@ResponseBody
 	public String getProductDetail(@RequestParam String productId) {
 
-		String wineInfo = "<div class=\"container\"><h1>#WINE_NAME_SHORT_DESC#</h1></div>###<div class=\"col-lg-6\"><div class=\"wine_v_1 text-center pb-4\"><img src=\"#WINE_IMG#\" alt=\"Image\" class=\"img-fluid\"></div></div><div class=\"col-lg-5 ml-auto\"><h2 class=\"text-primary\">#WINE_NAME_COST#</h2><p>#WINE_DESCRIPTION#</p><div class=\"mb-5\"><div class=\"input-group mb-3\" style=\"max-width: 200px;\"><div class=\"input-group-prepend\"><button class=\"btn btn-outline-primary js-btn-minus\" type=\"button\" style=\"visibility:hidden\">&minus;</button></div><input id=\"wineQuantity\" type=\"text\" class=\"form-control text-center border mr-0\" value=\"1\" placeholder=\"\" aria-label=\"Example text with button addon\" aria-describedby=\"button-addon1\"><div class=\"input-group-append\"><button class=\"btn btn-outline-primary js-btn-plus\" type=\"button\" style=\"visibility:hidden\">&plus;</button></div></div></div><p><a href=\"cart.html\" class=\"buy-now btn btn-sm height-auto px-4 py-3 btn-primary\" onclick=\"storeCart()\">Add To Cart</a></p></div>";
-		//String wineInfo = "<div class=\"col-lg-6\"><div class=\"wine_v_1 text-center pb-4\"><img src=\"#WINE_IMG#\" alt=\"Image\" class=\"img-fluid\"></div></div><div class=\"col-lg-5 ml-auto\"><h2 class=\"text-primary\">Wine Details</h2><p>#WINE_DETAILS#</p><div class=\"mb-5\"><div class=\"input-group plus-minus-input\"><div class=\"input-group-button\"><button type=\"button\" class=\"button hollow circle\" style=\"visibility:hidden\" data-quantity=\"minus\" data-field=\"quantity\"><i class=\"fa fa-minus\" aria-hidden=\"true\"></i></button></div><input class=\"input-group-field\" id=\"wineQuantity\" type=\"number\" name=\"quantity\" value=\"0\"><div class=\"input-group-button\"><button type=\"button\" class=\"button hollow circle\" style=\"visibility:hidden\" data-quantity=\"plus\" data-field=\"quantity\"><i class=\"fa fa-plus\" aria-hidden=\"true\"></i></button></div></div></div><p><a href=\"cart.html?productId=#PRODUCT_ID#\" class=\"buy-now btn btn-sm height-auto px-4 py-3 btn-primary\" onclick=\"storeCart()\">Add To Cart</a></p></div>";
+		//String wineInfo = "<div class=\"container\"><h1>#WINE_NAME_SHORT_DESC#</h1></div>###<div class=\"col-lg-6\"><div class=\"wine_v_1 text-center pb-4\"><img src=\"#WINE_IMG#\" alt=\"Image\" class=\"img-fluid\"></div></div><div class=\"col-lg-5 ml-auto\"><h2 class=\"text-primary\">#WINE_NAME_COST#</h2><p>#WINE_DESCRIPTION#</p><div class=\"mb-5\"><div class=\"input-group mb-3\" style=\"max-width: 200px;\"><div class=\"input-group-prepend\"><button class=\"btn btn-outline-primary js-btn-minus\" type=\"button\" style=\"visibility:hidden\">&minus;</button></div><input id=\"wineQuantity\" type=\"text\" class=\"form-control text-center border mr-0\" value=\"1\" placeholder=\"\" aria-label=\"Example text with button addon\" aria-describedby=\"button-addon1\"><div class=\"input-group-append\"><button class=\"btn btn-outline-primary js-btn-plus\" type=\"button\" style=\"visibility:hidden\">&plus;</button></div></div></div><p><a href=\"cart.html\" class=\"buy-now btn btn-sm height-auto px-4 py-3 btn-primary\" onclick=\"storeCart()\">Add To Cart</a></p></div>";
+		String wineInfo = "<div class=\"container\"><h1>#WINE_NAME_SHORT_DESC#</h1></div>###<div class=\"col-lg-6\"><div class=\"wine_v_1 text-center pb-4\"><img src=\"#WINE_IMG#\" alt=\"Image\" class=\"img-fluid\"></div></div><div class=\"col-lg-5 ml-auto\"><h2 class=\"text-primary\">#WINE_NAME_COST#</h2><p>#WINE_DESCRIPTION#</p><div class=\"mb-5\"><div class=\"input-group mb-3\" style=\"max-width: 200px;\"><div class=\"input-group-prepend\"><button class=\"btn btn-outline-primary js-btn-minus\" type=\"button\" style=\"visibility:hidden\">&minus;</button></div><input id=\"wineQuantity\" data-availableQty=\"#AVAILABLE_QTY#\" data-item=\"#WINE_NAME#\" type=\"text\" class=\"form-control text-center border mr-0\" value=\"1\" placeholder=\"\" aria-label=\"Example text with button addon\" aria-describedby=\"button-addon1\"><div class=\"input-group-append\"><button class=\"btn btn-outline-primary js-btn-plus\" type=\"button\" style=\"visibility:hidden\">&plus;</button></div></div></div><p><a style=\"color: white\" class=\"buy-now btn btn-sm height-auto px-4 py-3 btn-primary\" onclick=\"storeCart()\">Add To Cart</a></p></div>";
+		String availableQty = EcommerceDao.getQty(productId);
 		
 		for (int i = 0; i < keySet.length; i++) {
 			
@@ -61,6 +63,8 @@ public class ProductInfo {
 				wineInfo = wineInfo.replace("#WINE_DESCRIPTION#", wineLongDesc);
 				wineInfo = wineInfo.replace("#PRODUCT_ID#", productId);
 				wineInfo = wineInfo.replace("#WINE_IMG#", (products.get(keySet[i]))[2]);
+				wineInfo = wineInfo.replace("#AVAILABLE_QTY#", availableQty);
+				wineInfo = wineInfo.replace("#WINE_NAME#", (products.get(keySet[i]))[1]);
 				
 				break;
 			}				
@@ -73,8 +77,8 @@ public class ProductInfo {
 	@ResponseBody
 	public String getCartDetails(@RequestBody Cart cart) {
 
-		StringBuilder cartInfo = new StringBuilder("<tr id=\"#TR_ID#\"><td class=\"product-thumbnail\"><img src=\"#WINE_IMG#\" alt=\"Image\" class=\"img-fluid\"></td><td class=\"product-name\"><h2 class=\"h5 cart-product-title text-black\">#WINE_NAME#</h2></td><td>#WINE_COST#</td><td><div class=\"input-group mb-3\" style=\"max-width: 120px;\"><div class=\"input-group-prepend\"><button class=\"btn btn-outline-primary js-btn-minus\" style=\"visibility:hidden\" type=\"button\">&minus;</button></div><input id=\"#WINE_QUANTITY_ID#\" type=\"text\" class=\"form-control text-center border mr-0\" value=\"#WINE_QUANTITY#\" placeholder=\"\" aria-label=\"Example text with button addon\" aria-describedby=\"button-addon1\"><div class=\"input-group-append\"><button class=\"btn btn-outline-primary js-btn-plus\" style=\"visibility:hidden\" type=\"button\">&plus;</button></div></div></td><td>#TOTAL_COST#</td><td><input id=\"#REMOVE_BUTTON_ID#\" type=\"button\" value=\"X\" onclick=\"deleteRow(this, this.id)\"></td></tr>");
-		StringBuilder totalCostInfo = new StringBuilder("<div class=\"col-md-6\"><div class=\"row mb-5\"><div class=\"col-md-6 mb-3 mb-md-0\"><a class=\"btn btn-primary btn-md btn-block\" onclick=\"updateCart()\">Update Cart</a></div><div class=\"col-md-6\"><a class=\"btn btn-outline-primary btn-md btn-block\" href=\"shop.html\">Continue Shopping</a></div></div><div class=\"row\"></div></div><div class=\"col-md-6 pl-5\" id=\"#CHECKOUT_ID#\"><div class=\"row justify-content-end\"><div class=\"col-md-7\"><div class=\"row\"><div class=\"col-md-12 text-right border-bottom mb-5\"><h3 class=\"text-black h4 text-uppercase\">Cart Totals</h3></div></div><div class=\"row mb-3\"><div class=\"col-md-6\"><span class=\"text-black\">Subtotal</span></div><div class=\"col-md-6 text-right\"><strong class=\"text-black\">#SUB_TOTAL#</strong></div></div><div class=\"row mb-5\"><div class=\"col-md-6\"><span class=\"text-black\">Total</span></div><div class=\"col-md-6 text-right\"><strong id=\"#CART_AMT_ID#\" class=\"text-black\">#CART_TOTAL#</strong></div></div><div class=\"row\"><div class=\"col-md-12\"><a class=\"btn btn-primary btn-lg btn-block\" href=\"checkout.html\" onclick=\"checkout()\">Proceed To Checkout</a></div></div></div></div></div>");
+		StringBuilder cartInfo = new StringBuilder("<tr id=\"#TR_ID#\"><td class=\"product-thumbnail\"><a href=\"http://localhost:8085/Wines/shop-single.html?productId=#PRODUCT_ID#\" ><img src=\"#WINE_IMG#\" alt=\"Image\" class=\"img-fluid\"></a></td><td class=\"product-name\"><h2 class=\"h5 cart-product-title text-black\"><a href=\"http://localhost:8085/Wines/shop-single.html?productId=#PRODUCT_ID#\">#WINE_NAME#</a></h2></td><td>#WINE_COST#</td><td><input id=\"#WINE_QUANTITY_ID#\" type=\"text\" data-availableQty=\"#AVAILABLE_QTY#\" data-item=\"#WINE_NAME#\" class=\"form-control text-center \" value=\"#WINE_QUANTITY#\" placeholder=\"\"></td><td>#TOTAL_COST#</td><td><input id=\"#REMOVE_BUTTON_ID#\" type=\"button\" value=\"X\" onclick=\"deleteRow(this, this.id)\"></td></tr>");
+		StringBuilder totalCostInfo = new StringBuilder("<div class=\"col-md-6\"><div class=\"row mb-5\"><div class=\"col-md-6 mb-3 mb-md-0\"><a style=\"color: white\" class=\"btn btn-primary btn-md btn-block\" onclick=\"updateCart()\">Update Cart</a></div><div class=\"col-md-6\"><a style=\"color: white\" class=\"btn btn-primary btn-md btn-block\" href=\"shop.html\">Continue Shopping</a></div></div><div class=\"row\"></div></div><div class=\"col-md-6 pl-5\" id=\"#CHECKOUT_ID#\"><div class=\"row justify-content-end\"><div class=\"col-md-7\"><div class=\"row\"><div class=\"col-md-12 text-right border-bottom mb-5\"><h3 class=\"text-black h4 text-uppercase\">Cart Totals</h3></div></div><div class=\"row mb-3\"><div class=\"col-md-6\"><span class=\"text-black\">Subtotal</span></div><div class=\"col-md-6 text-right\"><strong class=\"text-black\">#SUB_TOTAL#</strong></div></div><div class=\"row mb-5\"><div class=\"col-md-6\"><span class=\"text-black\">Total</span></div><div class=\"col-md-6 text-right\"><strong id=\"#CART_AMT_ID#\" class=\"text-black\">#CART_TOTAL#</strong></div></div><div class=\"row\"><div class=\"col-md-12\"><a class=\"btn btn-primary btn-lg btn-block\" href=\"checkout.html\" onclick=\"checkout()\">Proceed To Checkout</a></div></div></div></div></div>");
 		String finalCart = "";
 		String tempCart="";
 		String tempCartupdated="";
@@ -86,7 +90,8 @@ public class ProductInfo {
 			String productId = item.getProductId();
 				System.out.println("product ID "+ item.getProductId());	
 				
-			String [] productInfo = products.get(productId);			
+			String [] productInfo = products.get(productId);
+			String avilableQty = EcommerceDao.getQty(productId);
 			Integer quantity = Integer.parseInt(item.getQuantity());
 			System.out.println("product ID price "+ productInfo[3]);
 			String price = productInfo[3];
@@ -102,7 +107,9 @@ public class ProductInfo {
 			updatedCart = updatedCart.replace("#WINE_QUANTITY#", item.getQuantity());
 			updatedCart = updatedCart.replace("#TOTAL_COST#", "$"+totalCost);
 			updatedCart = updatedCart.replace("#REMOVE_BUTTON_ID#", "rb"+i.toString()+productInfo[0]);
-			updatedCart = updatedCart.replace("#WINE_QUANTITY_ID#", "wq"+i.toString()+productInfo[0]);				
+			updatedCart = updatedCart.replace("#WINE_QUANTITY_ID#", "wq"+i.toString()+productInfo[0]);
+			updatedCart = updatedCart.replace("#AVAILABLE_QTY#", avilableQty);
+			updatedCart = updatedCart.replace("#PRODUCT_ID#", productId);
 			tempCart = updatedCart+tempCart;
 			
 		}
@@ -197,6 +204,7 @@ public class ProductInfo {
 		
 		return "Request submitted successfully!";
 	}
+	
 	
 	
 	public String sendEmail(String senderMail) {

@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="css/style.css">
 
 <script>
+  
   function submit(){
     var fname = document.getElementById("fname").value;
     var lname = document.getElementById("lname").value;
@@ -49,7 +50,7 @@
     xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       console.log("Inside if : calling");
-           window.location.href = "http://localhost:8080/Wines/request-confirmation.html" ;  
+           window.location.href = "http://localhost:8085/Wines/request-confirmation.html" ;  
       }         
     };
     console.log("Inside if : calling now");
@@ -63,7 +64,7 @@
 
 </head>
 
-<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" >
 
   <div class="site-wrap">
 
@@ -105,7 +106,21 @@
                 <li><a href="index.html" class="nav-link text-left">Home</a></li>
                 <li><a href="about.html" class="nav-link text-left">About</a></li>
                 <li><a href="shop.html" class="nav-link text-left">Wines</a></li>
-                <li><a href="shop.html" class="nav-link text-left">Shop</a></li>
+                <li>
+                  <a id="id_cart" href="cart.html" class="nav-link text-left">
+                    <script>
+                      if(sessionStorage.getItem("cartQty")){
+                        console.log("found cart");
+                        var dispCart = 'Cart('+sessionStorage.getItem("cartQty")+')';
+                        console.log("update cart icon : "+ dispCart);
+                        document.getElementById("id_cart").innerHTML= dispCart;
+                      }else {
+                        document.getElementById("id_cart").innerHTML= "Cart(0)";
+                        console.log("Did not found cart");
+                      } 
+                    </script>
+                  </a>
+                </li>
                 <li class="active"><a href="contact.html" class="nav-link text-left">Contact</a></li>
               </ul>                                                                                                                                                                                                                                                                                         
             </nav>

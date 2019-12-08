@@ -9,6 +9,7 @@ import java.util.Map;
 import com.example.beans.Checkout;
 import com.example.beans.Customer;
 import com.example.beans.Item;
+import com.example.beans.Product;
 import com.example.beans.ServiceRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -46,6 +47,24 @@ public class EcommerceDao {
 		}
 		// code to load the result set in hash map
 		return productMap;
+	}
+	
+		
+	public static String getQty(String pid) {
+		Connection con=DBConnection.getCon();
+		//query is done database
+		String quantity  ="";
+		try {
+			PreparedStatement	ps = con.prepareStatement("select stockqty from Inventory where productId = '" + pid + "'");
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {				
+				quantity  = rs.getString("stockqty");								
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return quantity;
 	}
 	
 	public static void updateCheckoutTables(Checkout cart) throws SQLException{

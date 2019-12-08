@@ -2,21 +2,25 @@ package com.example.beans;
 
 public class Product {
 	
-	private Integer productId;
+	private String productId;
 	
-	private String productName;
-	
-	private String productCategory;
-	
-	private String productDescription;
-	
-	private String productBrand;
-	
-	private String productManufacturer;
-	
-	private String productModel;
-	
-	
+	private String quantity;
+
+	public String getProductId() {
+		return productId;
+	}
+
+	public void setProductId(String productId) {
+		this.productId = productId;
+	}
+
+	public String getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(String quantity) {
+		this.quantity = quantity;
+	}
 	
 
 }
