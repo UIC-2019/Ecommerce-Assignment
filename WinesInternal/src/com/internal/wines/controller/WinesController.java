@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.internal.wines.bean.Employee;
 import com.internal.wines.bean.Inventory;
 import com.internal.wines.bean.Order;
+import com.internal.wines.bean.SalesByProduct;
 import com.internal.wines.bean.Vendor;
 import com.internal.wines.impl.WinesImpl;
 
@@ -34,6 +35,8 @@ public class WinesController extends HttpServlet {
 	 * employeeList holds Employee data
 	 */
 	public ArrayList<Employee> employeeList = new ArrayList<Employee>();
+	
+	public ArrayList<SalesByProduct> sales = new ArrayList<SalesByProduct>();
 	WinesImpl impl = new WinesImpl();
 	/**
 	 * vendorList
@@ -79,6 +82,15 @@ public class WinesController extends HttpServlet {
 		employeeList = impl.fetchEmployees();
 		return employeeList;
 	}
+	
+	public ArrayList<SalesByProduct>getSalesByProduct(){
+		/**call to employeeList
+		 * 
+		 */
+		sales = impl.getSalesByProd();
+		return sales;
+	}
+	
 	/**
 	 * doPost
 	 * request and response object set

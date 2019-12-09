@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.internal.wines.bean.Employee;
 import com.internal.wines.bean.Inventory;
 import com.internal.wines.bean.Order;
+import com.internal.wines.bean.SalesByProduct;
 import com.internal.wines.bean.Vendor;
 import com.internal.wines.dao.WinesDao;
 
@@ -20,6 +21,12 @@ public class WinesImpl {
 		ArrayList<Vendor> vendorList = 	dao.loadVendors();
 		return vendorList;
 	}
+	
+	public ArrayList<SalesByProduct>getSalesByProd(){
+		ArrayList<SalesByProduct> sales = 	dao.loadSalesByProduct();
+		return sales;
+	}
+	
 	/**
 	 * vendorList holds Order data
 	 */
