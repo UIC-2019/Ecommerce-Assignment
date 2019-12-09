@@ -109,6 +109,11 @@ $(document).ready(function() {
           <i class="fas fa-fw fa-table"></i>
           <span>Employees</span></a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="saleByProduct.jsp">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>SaleByProduct</span></a>
+      </li>
     </ul>
 
     <div id="content-wrapper">

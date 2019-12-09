@@ -1,4 +1,5 @@
-
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <%@page import="com.internal.wines.bean.Employee"%>
 <%@page import="com.internal.wines.controller.WinesController"%>
 <%@page import="java.util.ArrayList"%>
