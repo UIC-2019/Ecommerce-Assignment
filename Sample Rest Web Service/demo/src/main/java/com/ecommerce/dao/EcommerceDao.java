@@ -131,7 +131,7 @@ public class EcommerceDao {
 		
 		String OrderID="",price="", stockqty = "";
 
-		String Sql = "select Top 1 OrderID from Orders Order by OrderID desc";
+		String Sql = "Select top 1 TRY_CAST (OrderID AS INT) from Orders Order by TRY_CAST (OrderID AS INT) desc";
 		resultSet = statement.executeQuery(Sql);
 		while (resultSet.next())
 		{
